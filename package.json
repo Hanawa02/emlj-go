@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "openapi": "npx @openapitools/openapi-generator-cli generate -i https://gakkou-service.herokuapp.com/api-json -g typescript-angular -o ./src/app/rest-api --skip-validate-spec --additional-properties ngVersion=9.0.6"
   },
   "private": true,
   "dependencies": {
@@ -16,9 +17,13 @@
     "@angular/compiler": "~9.0.7",
     "@angular/core": "~9.0.7",
     "@angular/forms": "~9.0.7",
+    "@angular/material": "^9.2.0",
     "@angular/platform-browser": "~9.0.7",
     "@angular/platform-browser-dynamic": "~9.0.7",
     "@angular/router": "~9.0.7",
+    "@ngrx/effects": "^9.1.0",
+    "@ngrx/router-store": "^9.1.0",
+    "@ngrx/store": "^9.1.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -28,9 +33,10 @@
     "@angular/cli": "~9.0.7",
     "@angular/compiler-cli": "~9.0.7",
     "@angular/language-service": "~9.0.7",
-    "@types/node": "^12.11.1",
+    "@openapitools/openapi-generator-cli": "^1.0.12-4.3.0",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",

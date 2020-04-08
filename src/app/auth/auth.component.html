@@ -1,0 +1,31 @@
+<div class="w-100-p auth-container">
+  <h1>Sistema Gakkou - Login</h1>
+
+  <form name="loginForm" class="auth-form" [formGroup]="loginForm">
+    <mat-form-field appearance="fill">
+      <mat-label>e-mail</mat-label>
+      <input matInput type="email" formControlName="email" required />
+      <!-- <mat-error *ngIf="loginFormErrors.password.required"
+        >É necessário informar o email</mat-error
+      > -->
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label for>senha</mat-label>
+      <input matInput type="password" formControlName="password" required />
+      <!-- <mat-error *ngIf="loginFormErrors.password.required"
+        >É necessário informar a senha</mat-error
+      > -->
+    </mat-form-field>
+
+    <p class="warn-fg error">{{ error }}</p>
+    <button
+      class="submit-button"
+      (click)="login()"
+      mat-raised-button="mat-raised-button"
+      color="primary"
+      aria-label="loginForm.invalid"
+    >
+      Entrar
+    </button>
+  </form>
+</div>

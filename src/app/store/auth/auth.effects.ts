@@ -1,0 +1,116 @@
+import { Injectable } from '@angular/core';
+import { Router, RouterStateSnapshot } from '@angular/router';
+import { Plugins } from '@capacitor/core';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { from, of } from 'rxjs';
+import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import {
+  AuthActionTypes,
+  LoginError,
+  LoginRequested,
+  LoginSuccess,
+  Logout,
+  UpdatePasswordRequested,
+  UpdatePasswordSuccess,
+  UpdatePasswordError,
+  LoginByToken,
+} from './auth.actions';
+import { Action } from 'rxjs/internal/scheduler/Action';
+import { DefaultService } from '../../rest-api';
+
+const { Storage } = Plugins;
+
+@Injectable()
+export class AuthEffects {
+  @Effect()
+  loginRequested$ = this.actions$.pipe(
+    ofType<LoginRequested>(AuthActionTypes.LoginRequested),
+    map((action) => action.payload.login),
+    switchMap((login) =>
+      this.defaultService.authControllerLogin(login).pipe(
+        map((data) => {
+          console.log(data);
+          return new LoginSuccess({
+            user: data.user,
+            token: data.token,
+          });
+        }),
+        catchError((error) => {
+          // this.snackBar.open('Não foi possível realizar o login', 'ok', {
+          //   duration: 5000,
+          //   verticalPosition: 'top',
+          // });
+
+          return of(
+            new LoginError({
+              error,
+            })
+          );
+        })
+      )
+    )
+  );
+
+  @Effect({ dispatch: false })
+  loginSuccess$ = this.actions$.pipe(
+    ofType<LoginSuccess>(AuthActionTypes.LoginSuccess),
+    map((action) => action.payload),
+    switchMap((payload) =>
+      from(Storage.set({ key: 'token', value: payload.token }))
+    ),
+    tap(() => this.router.navigate(['alunos']))
+  );
+
+  @Effect({ dispatch: false })
+  logout$ = this.actions$.pipe(
+    ofType<Logout>(AuthActionTypes.Logout),
+    switchMap(() => from(Storage.remove({ key: 'token' }))),
+    tap(() => {
+      this.router.navigate(['login']);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  loginByToken$ = this.actions$.pipe(
+    ofType<LoginByToken>(AuthActionTypes.LoginByToken),
+    tap(() => {
+      console.log(this.router);
+      if (this.router.url.includes('login')) {
+        this.router.navigate(['alunos']);
+      }
+    })
+  );
+
+  // @Effect()
+  // UpdatePasswordRequested = this.actions$.pipe(
+  //   ofType<UpdatePasswordRequested>(AuthActionTypes.UpdatePasswordRequested),
+  //   map((action) => action.payload),
+  //   mergeMap((payload) => {
+  //     return this.accountService.accountUpdatepasswordPost(payload).pipe(
+  //       map((response) => new UpdatePasswordSuccess()),
+  //       catchError((error) => {
+  //         this.snackBar.open(
+  //           'não foi possível atualizar a senha',
+  //           'OK',
+  //           {
+  //             duration: 5000,
+  //             verticalPosition: 'top',
+  //           }
+  //         );
+
+  //         return of(
+  //           new UpdatePasswordError({
+  //             error,
+  //           })
+  //         );
+  //       })
+  //     );
+  //   })
+  // );
+
+  constructor(
+    private defaultService: DefaultService,
+    private actions$: Actions,
+    private router: Router
+  ) {}
+}

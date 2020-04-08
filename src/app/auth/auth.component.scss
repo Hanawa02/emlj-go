@@ -1,0 +1,14 @@
+.auth-container {
+  display: flex;
+  height: 100%;
+  place-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  min-width: 300px;
+}

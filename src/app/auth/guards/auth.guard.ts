@@ -21,11 +21,9 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    console.log(state);
     return this.store.pipe(
       select(getIsLoggedIn),
       tap((loggedIn) => {
-        console.log(loggedIn);
         if (!loggedIn) {
           this.store.dispatch(new Logout());
         }

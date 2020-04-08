@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   isLoggedIn$ = this.store.pipe(select(getIsLoggedIn));
   async ngOnInit(): Promise<void> {
     const token = await Storage.get({ key: 'token' });
-    console.log(token);
     if (token.value) {
       this.store.dispatch(new LoginByToken({ token: token.value }));
     }

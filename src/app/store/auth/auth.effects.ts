@@ -29,7 +29,6 @@ export class AuthEffects {
     switchMap((login) =>
       this.defaultService.authControllerLogin(login).pipe(
         map((data) => {
-          console.log(data);
           return new LoginSuccess({
             user: data.user,
             token: data.token,
@@ -74,7 +73,6 @@ export class AuthEffects {
   loginByToken$ = this.actions$.pipe(
     ofType<LoginByToken>(AuthActionTypes.LoginByToken),
     tap(() => {
-      console.log(this.router);
       if (this.router.url.includes('login')) {
         this.router.navigate(['alunos']);
       }

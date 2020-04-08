@@ -59,7 +59,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     const { email, password } = this.loginForm.value;
 
     const login: User = { email, password, id: undefined, username: undefined };
-    console.log(login);
     this.store.dispatch(new LoginRequested({ login }));
   }
 

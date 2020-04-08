@@ -1,0 +1,4 @@
+{
+  "editor.autoClosingQuotes": "always",
+  "prettier.requireConfig": true
+}

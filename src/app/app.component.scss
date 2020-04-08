@@ -1,0 +1,40 @@
+:host {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+
+  .menu {
+    width: 100%;
+    height: 64px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-left: 24px;
+    padding-right: 24px;
+
+    .logo {
+      height: 48px;
+    }
+    .menu-item {
+      text-decoration: none;
+      margin: 8px;
+      color: #111;
+    }
+
+    .logout-item {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .container {
+    position: relative;
+    padding: 16px;
+    flex: 1;
+  }
+}

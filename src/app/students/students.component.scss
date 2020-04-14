@@ -1,9 +1,28 @@
-tr.mat-header-row {
-  background-color: #ddd;
-}
+:host {
+  display: flex;
+  flex-direction: column;
+  tr.mat-header-row {
+    background-color: #ddd;
+  }
 
-.mat-header-cell,
-.cdk-header-cell {
-  // font-weight: bold;
-  font-size: 1.1em;
+  .mat-header-cell,
+  .cdk-header-cell {
+    // font-weight: bold;
+    font-size: 1.1em;
+  }
+  .students-table {
+    border-radius: 1em;
+  }
+
+  .new-student-button {
+    width: fit-content;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 1em;
+    padding: 0.5em 1em;
+    font-weight: bold;
+    box-shadow: 0px 0px 0.28em 0px rgba(0, 0, 0, 0.5);
+    align-self: center;
+    margin-bottom: 1em;
+  }
 }

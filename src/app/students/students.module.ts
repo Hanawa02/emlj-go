@@ -5,15 +5,26 @@ import { SharedModule } from '../shared/shared.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CdkTableModule } from '@angular/cdk/table';
-
+import { StudentItemComponent } from './student-item/student-item.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @NgModule({
-  declarations: [StudentsComponent],
+  declarations: [StudentsComponent, StudentItemComponent],
   imports: [
     CommonModule,
     SharedModule,
     MatTableModule,
     MatPaginatorModule,
     CdkTableModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatDatepickerModule,
   ],
 })
 export class StudentsModule {}

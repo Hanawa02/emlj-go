@@ -1,7 +1,8 @@
+<button class="new-student-button" (click)="goToNovoAluno()">Novo Aluno</button>
 <table
   mat-table
   [dataSource]="dataSource$ | async"
-  class="mat-elevation-z8 w-100-p"
+  class="mat-elevation-z8 w-100-p students-table"
   matSort
 >
   <!--- Note that these columns can be defined in any order.

@@ -16,6 +16,7 @@ import { StudentsModule } from './students/students.module';
 import { StudentsStoreModule } from './store/students/students-store.module';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
 import { MatIconModule } from '@angular/material/icon';
+import { MatNativeDateModule } from '@angular/material/core';
 
 export function apiConfigFactory(): Configuration {
   return new Configuration({
@@ -39,6 +40,7 @@ export function apiConfigFactory(): Configuration {
     StudentsStoreModule,
     StudentsModule,
     MatIconModule,
+    MatNativeDateModule,
   ],
   providers: [
     Store,

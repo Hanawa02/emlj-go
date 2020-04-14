@@ -10,3 +10,8 @@ export const getAllStudents = createSelector(
   selectStudentsState,
   fromStudentsState.selectAll
 );
+
+export const getSelectedStudent = createSelector(
+  selectStudentsState,
+  (state) => state.selectedStudent
+);

@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AuthComponent } from './auth/auth.component';
 import { StudentsComponent } from './students/students.component';
+import { StudentItemComponent } from './students/student-item/student-item.component';
+import { StudentSavedGuard } from './students/student-item/guards/student-saved.guard';
 
 const appRoutes: Routes = [
   {
@@ -13,6 +15,12 @@ const appRoutes: Routes = [
     path: 'alunos',
     canActivate: [AuthGuard],
     component: StudentsComponent,
+  },
+  {
+    path: 'novoAluno',
+    canActivate: [AuthGuard],
+    canDeactivate: [StudentSavedGuard],
+    component: StudentItemComponent,
   },
   {
     path: '',

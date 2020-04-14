@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { getAllStudents } from '../store/students/students.selectors';
 import { LoadStudentsRequested } from '../store/students/students.actions';
 import { Aluno } from '../rest-api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-students',
@@ -22,7 +23,11 @@ export class StudentsComponent implements OnInit, OnDestroy {
   ];
   dataSource$ = this.store.pipe(select(getAllStudents));
 
-  constructor(private store: Store<StudentsState>) {}
+  goToNovoAluno() {
+    this.router.navigate(['novoAluno']);
+  }
+
+  constructor(private store: Store<StudentsState>, private router: Router) {}
 
   ngOnInit(): void {
     this.store.dispatch(new LoadStudentsRequested());

@@ -5,11 +5,11 @@ import { Aluno } from 'src/app/rest-api';
 export const adapter: EntityAdapter<Aluno> = createEntityAdapter<Aluno>();
 
 export interface StudentsState extends EntityState<Aluno> {
-  selected: Aluno;
+  selectedStudent: Aluno;
 }
 
 export const initialState: StudentsState = adapter.getInitialState({
-  selected: undefined,
+  selectedStudent: undefined,
 });
 
 export function reducer(

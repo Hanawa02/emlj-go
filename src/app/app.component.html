@@ -1,18 +1,21 @@
-<nav *ngIf="isLoggedIn$ | async" class="menu">
-  <img
-    class="logo"
-    src="./assets/logo.jfif"
-    alt="logo escola modelo de língua japonesa de goiás"
-  />
-  <a class="menu-item" routerLink="/alunos" routerLinkActive="active">Alunos</a
-  >|
-  <a class="menu-item" routerLink="/aniversariantes" routerLinkActive="active"
-    >Aniversariantes</a
-  >|
-  <a class="menu-item logout-item" (click)="Logout()"
-    >Sair
-    <mat-icon>exit_to_app</mat-icon>
-  </a>
+<nav *ngIf="isLoggedIn$ | async" class="menu-container">
+  <div class="menu-content">
+    <img
+      class="logo"
+      src="./assets/logo.jfif"
+      alt="logo escola modelo de língua japonesa de goiás"
+    />
+    <a class="menu-item" routerLink="/alunos" routerLinkActive="active"
+      >Alunos</a
+    >|
+    <a class="menu-item" routerLink="/aniversariantes" routerLinkActive="active"
+      >Aniversariantes</a
+    >|
+    <a class="menu-item logout-item" (click)="Logout()"
+      >Sair
+      <mat-icon>exit_to_app</mat-icon>
+    </a>
+  </div>
 </nav>
 <div class="container">
   <router-outlet></router-outlet>

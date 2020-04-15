@@ -14,6 +14,7 @@
     <input
       (click)="openDataNascimentoDatePicker()"
       matInput
+      required
       [matDatepicker]="dataNascimentoDatePicker"
       formControlName="dataNascimento"
     />
@@ -33,7 +34,6 @@
       matInput
       type="text"
       formControlName="CPF"
-      required
       (blur)="formatCPF()"
       [value]="studentForm.value.CPF | cpfFormat"
     />

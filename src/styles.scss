@@ -11,8 +11,74 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$emlj-go-primary: mat-palette($mat-indigo);
-$emlj-go-accent: mat-palette($mat-pink, A200, A100, A400);
+$gakkou-red: (
+  50: #f8e1e5,
+  100: #edb5be,
+  200: #e18492,
+  300: #d45266,
+  400: #cb2d46,
+  500: #c20825,
+  600: #bc0721,
+  700: #b4061b,
+  800: #ac0416,
+  900: #9f020d,
+  A100: #ffc9cb,
+  A200: #ff969a,
+  A400: #ff6369,
+  A700: #ff4a50,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$gakkou-gray: (
+  50: #f0f0f0,
+  100: #dadada,
+  200: #c2c2c2,
+  300: #aaaaaa,
+  400: #979797,
+  500: #858585,
+  600: #7d7d7d,
+  700: #727272,
+  800: #686868,
+  900: #555555,
+  A100: #f9c8c8,
+  A200: #f49a9a,
+  A400: #ff5c5c,
+  A700: #ff4242,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #ffffff,
+  ),
+);
+
+$emlj-go-primary: mat-palette($gakkou-red);
+$emlj-go-accent: mat-palette($gakkou-gray);
 
 // The warn palette is optional (defaults to red).
 $emlj-go-warn: mat-palette($mat-red);

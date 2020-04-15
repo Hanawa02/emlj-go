@@ -1,33 +1,41 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { LENGTH_CPF_WITHOUT_FORMAT } from '../constants/CPF.constants';
 
 @Pipe({ name: 'cpfFormat' })
 export class CPFFormatPipe implements PipeTransform {
-  transform(value: number): string {
+  transform(value: string, addZeros: boolean = false): string {
     if (!value) {
       return '';
     }
-    let cpfString = value.toString();
+    const regex = /(\.|\-)/gm;
 
-    if (cpfString.length < 9) {
+    let cpfString = value.replace(regex, '');
+
+    if (addZeros && cpfString.length < LENGTH_CPF_WITHOUT_FORMAT) {
+      cpfString =
+        '0'.repeat(LENGTH_CPF_WITHOUT_FORMAT - cpfString.length) + cpfString;
+    }
+
+    if (cpfString.length <= 3) {
       return cpfString;
     }
 
-    const verifyingDigits = cpfString.substr(cpfString.length - 2, 2);
-    cpfString = cpfString.substr(0, cpfString.length - 2);
+    const firstThreeDigitsGroup = cpfString.substr(0, 3);
+    cpfString = cpfString.substr(3);
 
-    const thirdThreeDigits = cpfString.substr(cpfString.length - 3, 3);
-    cpfString = cpfString.substr(0, cpfString.length - 3);
+    if (cpfString.length <= 3) {
+      return `${firstThreeDigitsGroup}.${cpfString}`;
+    }
 
-    const secondThreeDigits = cpfString.substr(cpfString.length - 3, 3);
-    cpfString = cpfString.substr(0, cpfString.length - 3);
+    const secondThreeDigitsGroup = cpfString.substr(0, 3);
+    cpfString = cpfString.substr(3);
 
-    const firstThreeDigits =
-      cpfString.length === 3
-        ? cpfString
-        : cpfString.length === 2
-        ? '0' + cpfString
-        : '00' + cpfString;
+    if (cpfString.length <= 3) {
+      return `${firstThreeDigitsGroup}.${secondThreeDigitsGroup}.${cpfString}`;
+    }
 
-    return `${firstThreeDigits}.${secondThreeDigits}.${thirdThreeDigits}-${verifyingDigits}`;
+    const thirdThreeDigitsGroup = cpfString.substr(0, 3);
+    cpfString = cpfString.substr(3);
+    return `${firstThreeDigitsGroup}.${secondThreeDigitsGroup}.${thirdThreeDigitsGroup}-${cpfString}`;
   }
 }

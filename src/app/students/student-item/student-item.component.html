@@ -28,14 +28,14 @@
   </mat-form-field>
 
   <mat-form-field class="form-field-25">
-    <mat-label for>CPF *** falta formatar</mat-label>
+    <mat-label for>CPF</mat-label>
     <input
       matInput
-      type="number"
-      min="0"
-      step="1"
+      type="text"
       formControlName="CPF"
       required
+      (blur)="formatCPF()"
+      [value]="studentForm.value.CPF | cpfFormat"
     />
     <!-- <mat-error *ngIf="studentFormErrors.email.required"
         >É necessário informar a senha</mat-error

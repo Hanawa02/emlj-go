@@ -11,6 +11,6 @@ import { CPFFormatPipe } from './pipes/cpf-format.pipe';
   declarations: [CPFFormatPipe],
   imports: [CommonModule],
   exports: [ApiModule, NgLetModule, BrowserAnimationsModule, CPFFormatPipe],
-  providers: [],
+  providers: [CPFFormatPipe],
 })
 export class SharedModule {}

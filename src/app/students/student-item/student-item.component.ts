@@ -10,6 +10,8 @@ import { getSelectedStudent } from 'src/app/store/students/students.selectors';
 import { CreateStudentRequested } from 'src/app/store/students/students.actions';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { LENGTH_CPF_WITH_FORMAT } from 'src/app/shared/constants/CPF.constants';
+import { CPFFormatPipe } from 'src/app/shared/pipes/cpf-format.pipe';
 
 @Component({
   selector: 'app-student-item',
@@ -27,7 +29,8 @@ export class StudentItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<StudentsState>,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cpfFormaterPipe: CPFFormatPipe
   ) {}
 
   ngOnInit(): void {
@@ -110,6 +113,13 @@ export class StudentItemComponent implements OnInit, OnDestroy {
 
   openDataNascimentoDatePicker() {
     this.dataNascimentoDatePicker.open();
+  }
+
+  formatCPF(): void {
+    this.studentForm.value.CPF = this.cpfFormaterPipe.transform(
+      this.studentForm.value.CPF,
+      true
+    );
   }
 
   save() {

@@ -15,10 +15,11 @@ import { Router } from '@angular/router';
 })
 export class StudentsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
-    'id',
     'nome',
     'dataNascimento',
     'CPF',
+    'telefone',
+    'celular',
     'turmaAtual',
   ];
   dataSource$ = this.store.pipe(select(getAllStudents));

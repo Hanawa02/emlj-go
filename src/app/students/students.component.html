@@ -8,12 +8,6 @@
   <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
 
-  <!-- ID Column -->
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-  </ng-container>
-
   <!-- Name Column -->
   <ng-container matColumnDef="nome">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
@@ -34,10 +28,24 @@
     <td mat-cell *matCellDef="let element">{{ element.CPF }}</td>
   </ng-container>
 
+  <!-- Phone Class Column -->
+  <ng-container matColumnDef="telefone">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Telefone</th>
+    <td mat-cell *matCellDef="let element">{{ element.telefone }}</td>
+  </ng-container>
+
+  <!-- Cellphone Class Column -->
+  <ng-container matColumnDef="celular">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Celular</th>
+    <td mat-cell *matCellDef="let element">{{ element.celular }}</td>
+  </ng-container>
+
   <!-- Current Class Column -->
   <ng-container matColumnDef="turmaAtual">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Turma Atual</th>
-    <td mat-cell *matCellDef="let element">{{ element.turmaAtual }}</td>
+    <td mat-cell *matCellDef="let element">
+      {{ element.turmaAtual ? element.turmaAtual : 'Aluno(a) inativo(a)' }}
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

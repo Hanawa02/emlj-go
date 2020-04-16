@@ -16,9 +16,13 @@
   </button>
 </div>
 
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+></mat-paginator>
 <table
   mat-table
-  [dataSource]="filteredStudentList"
+  [dataSource]="dataSource"
   class="mat-elevation-z8 w-100-p students-table"
   matSort
 >
@@ -65,11 +69,6 @@
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons
-  ></mat-paginator>
 </table>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { StudentsState } from '../store/students/students.reducer';
 import { untilDestroy } from '@ngrx-utils/store';
@@ -8,6 +8,9 @@ import { LoadStudentsRequested } from '../store/students/students.actions';
 import { Aluno } from '../rest-api';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-students',
@@ -23,8 +26,9 @@ export class StudentsComponent implements OnInit, OnDestroy {
     'celular',
     'turmaAtual',
   ];
-  filteredStudentList: Aluno[];
-  studentList: Aluno[];
+  dataSource = new MatTableDataSource<Aluno>();
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   searchParameter = new FormControl('');
 
@@ -35,6 +39,10 @@ export class StudentsComponent implements OnInit, OnDestroy {
   constructor(private store: Store<StudentsState>, private router: Router) {}
 
   ngOnInit(): void {
+    this.dataSource.filterPredicate = (data: Aluno, filter: string) =>
+      data.nome?.toLowerCase().includes(filter) ||
+      data.CPF?.toString().includes(filter);
+
     this.store.dispatch(new LoadStudentsRequested());
 
     this.store
@@ -42,8 +50,9 @@ export class StudentsComponent implements OnInit, OnDestroy {
         untilDestroy(this),
         select(getAllStudents),
         tap((students) => {
-          this.studentList = students.slice();
-          this.filterStudentList(this.searchParameter.value);
+          this.dataSource.data = students;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         })
       )
       .subscribe();
@@ -54,25 +63,7 @@ export class StudentsComponent implements OnInit, OnDestroy {
   }
 
   filterStudentList(criteria: string) {
-    criteria = criteria.toLowerCase();
-
-    console.log(criteria, this.studentList, this.filteredStudentList);
-
-    if (!this.studentList) {
-      this.filteredStudentList = [];
-      return;
-    }
-
-    if (!criteria) {
-      this.filteredStudentList = this.studentList.slice();
-      return;
-    }
-
-    this.filteredStudentList = this.studentList.filter(
-      (student) =>
-        student.nome?.toLowerCase().includes(criteria) ||
-        student.CPF?.toString().includes(criteria)
-    );
+    this.dataSource.filter = criteria.toLowerCase();
   }
 
   ngOnDestroy() {

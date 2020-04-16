@@ -14,7 +14,34 @@
   }
 
   .students-table {
-    border-radius: 1em;
+    .mat-sort-header {
+      color: $gakkou-red;
+    }
+
+    .mat-column-nome {
+      width: 35%;
+      word-wrap: break-word;
+    }
+
+    .mat-column-dataNascimento {
+      width: 12%;
+    }
+
+    .mat-column-CPF {
+      width: 12%;
+    }
+
+    .mat-column-telefone {
+      width: 12%;
+    }
+
+    .mat-column-celular {
+      width: 12%;
+    }
+
+    .mat-column-turmaAtual {
+      width: 20%;
+    }
   }
 
   .search {

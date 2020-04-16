@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSortModule } from '@angular/material/sort';
 @NgModule({
   declarations: [StudentsComponent, StudentItemComponent],
   imports: [
@@ -25,6 +26,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatButtonModule,
     MatInputModule,
     MatDatepickerModule,
+    MatSortModule,
   ],
 })
 export class StudentsModule {}

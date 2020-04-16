@@ -42,9 +42,12 @@
 
   .container {
     position: relative;
-    padding: 1em;
+    padding: 2.5em;
     flex: 1;
+    margin: 0 auto;
     margin-top: 64px;
     overflow: auto;
+    width: 100%;
+    max-width: 1280px;
   }
 }

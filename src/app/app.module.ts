@@ -45,10 +45,6 @@ export function apiConfigFactory(): Configuration {
   providers: [
     Store,
     {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { floatLabel: 'always' },
-    },
-    {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,

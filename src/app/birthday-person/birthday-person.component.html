@@ -1,0 +1,53 @@
+<div class="search">
+  <mat-icon aria-hidden="false" color="primary" aria-label="search icon"
+    >event</mat-icon
+  >
+  <mat-form-field>
+    <mat-label for>Selecione o Mês </mat-label>
+
+    <mat-select [formControl]="month">
+      <mat-option *ngFor="let item of months" [value]="item.value">
+        {{ item.description }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+></mat-paginator>
+<table
+  mat-table
+  [dataSource]="dataSource"
+  class="mat-elevation-z8 w-100-p students-table"
+  matSort
+>
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="nome">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+    <td mat-cell *matCellDef="let element">{{ element.nome }}</td>
+  </ng-container>
+
+  <!-- Birthdate Column -->
+  <ng-container matColumnDef="dataNascimento">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Aniversario</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.dataNascimento | date: 'dd/MMMM' }}
+    </td>
+  </ng-container>
+
+  <!-- Current Class Column -->
+  <ng-container matColumnDef="turmaAtual">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Turma Atual</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.turmaAtual ? element.turmaAtual : 'Aluno(a) inativo(a)' }}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

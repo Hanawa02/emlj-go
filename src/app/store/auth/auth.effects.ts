@@ -17,6 +17,9 @@ import {
   WakeUpServer,
 } from './auth.actions';
 import { AuthService, DefaultService } from '../../rest-api';
+import { Store } from '@ngrx/store';
+import { AuthState } from './auth.reducer';
+import { LoadStudentsRequested } from '../students/students.actions';
 
 const { Storage } = Plugins;
 
@@ -57,7 +60,10 @@ export class AuthEffects {
     switchMap((payload) =>
       from(Storage.set({ key: 'token', value: payload.token }))
     ),
-    tap(() => this.router.navigate(['alunos']))
+    tap(() => {
+      this.store.dispatch(new LoadStudentsRequested());
+      this.router.navigate(['alunos']);
+    })
   );
 
   @Effect({ dispatch: false })
@@ -73,6 +79,8 @@ export class AuthEffects {
   loginByToken$ = this.actions$.pipe(
     ofType<LoginByToken>(AuthActionTypes.LoginByToken),
     tap(() => {
+      this.store.dispatch(new LoadStudentsRequested());
+
       if (this.router.url.includes('login')) {
         this.router.navigate(['alunos']);
       }
@@ -117,6 +125,7 @@ export class AuthEffects {
     private authService: AuthService,
     private defaultService: DefaultService,
     private actions$: Actions,
-    private router: Router
+    private router: Router,
+    private store: Store<AuthState>
   ) {}
 }

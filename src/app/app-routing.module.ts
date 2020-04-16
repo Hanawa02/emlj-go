@@ -5,6 +5,7 @@ import { AuthComponent } from './auth/auth.component';
 import { StudentsComponent } from './students/students.component';
 import { StudentItemComponent } from './students/student-item/student-item.component';
 import { StudentSavedGuard } from './students/student-item/guards/student-saved.guard';
+import { BirthdayPersonComponent } from './birthday-person/birthday-person.component';
 
 const appRoutes: Routes = [
   {
@@ -21,6 +22,11 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
     canDeactivate: [StudentSavedGuard],
     component: StudentItemComponent,
+  },
+  {
+    path: 'aniversariantes',
+    canActivate: [AuthGuard],
+    component: BirthdayPersonComponent,
   },
   {
     path: '',

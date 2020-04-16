@@ -4,6 +4,7 @@ import { Plugins } from '@capacitor/core';
 import { Store, select } from '@ngrx/store';
 import { AuthState } from './store/auth/auth.reducer';
 import { getIsLoggedIn } from './store/auth/auth.selectors.module';
+import { LoadStudentsRequested } from './store/students/students.actions';
 
 const { Storage } = Plugins;
 

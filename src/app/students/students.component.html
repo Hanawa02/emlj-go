@@ -1,7 +1,24 @@
-<button class="new-student-button" (click)="goToNovoAluno()">Novo Aluno</button>
+<div class="search">
+  <mat-form-field>
+    <mat-label for>Pesquisar Aluno (nome ou cpf)</mat-label>
+    <input type="text" matInput [formControl]="searchParameter" />
+    <mat-icon
+      matPrefix
+      aria-hidden="false"
+      color="primary"
+      aria-label="search icon"
+      >search</mat-icon
+    >
+  </mat-form-field>
+
+  <button class="new-student-button" (click)="goToNovoAluno()">
+    Novo Aluno
+  </button>
+</div>
+
 <table
   mat-table
-  [dataSource]="dataSource$ | async"
+  [dataSource]="filteredStudentList"
   class="mat-elevation-z8 w-100-p students-table"
   matSort
 >

@@ -3,6 +3,8 @@ import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 
+import { AlunosService } from './api/alunos.service';
+import { AuthService } from './api/auth.service';
 import { DefaultService } from './api/default.service';
 
 @NgModule({

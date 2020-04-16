@@ -14,7 +14,7 @@ import {
   CreateStudentError,
 } from './students.actions';
 import { Action } from 'rxjs/internal/scheduler/Action';
-import { DefaultService } from '../../rest-api';
+import { DefaultService, AlunosService } from '../../rest-api';
 
 const { Storage } = Plugins;
 
@@ -24,7 +24,7 @@ export class StudentsEffects {
   loadStudentsRequest$ = this.actions$.pipe(
     ofType<LoadStudentsRequested>(StudentsActionTypes.LoadStudents),
     switchMap(() =>
-      this.defaultService.alunosControllerFindAll().pipe(
+      this.studentService.alunosControllerFindAll().pipe(
         map((data) => {
           return new LoadStudentsSuccess({
             students: data,
@@ -51,7 +51,7 @@ export class StudentsEffects {
     ofType<CreateStudentRequested>(StudentsActionTypes.CreateStudent),
     map((action) => action.payload.student),
     switchMap((student) =>
-      this.defaultService.alunosControllerCreate(student).pipe(
+      this.studentService.alunosControllerCreate(student).pipe(
         map((data) => {
           return new CreateStudentSuccess({
             student: data,
@@ -73,7 +73,7 @@ export class StudentsEffects {
     )
   );
   constructor(
-    private defaultService: DefaultService,
+    private studentService: AlunosService,
     private actions$: Actions,
     private router: Router
   ) {}

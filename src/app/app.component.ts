@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginByToken, Logout } from './store/auth/auth.actions';
+import { LoginByToken, Logout, WakeUpServer } from './store/auth/auth.actions';
 import { Plugins } from '@capacitor/core';
 import { Store, select } from '@ngrx/store';
 import { AuthState } from './store/auth/auth.reducer';
@@ -13,7 +13,9 @@ const { Storage } = Plugins;
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private store: Store<AuthState>) {}
+  constructor(private store: Store<AuthState>) {
+    this.store.dispatch(new WakeUpServer());
+  }
 
   isLoggedIn$ = this.store.pipe(select(getIsLoggedIn));
   async ngOnInit(): Promise<void> {

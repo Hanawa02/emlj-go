@@ -12,6 +12,8 @@ export enum AuthActionTypes {
   UpdatePasswordRequested = '[Auth] Update Password Requested',
   UpdatePasswordSuccess = '[API] Update Password Success',
   UpdatePasswordError = '[API] Update Password Error',
+
+  WakeUpServer = '[API] Wake Up Server',
 }
 
 export class LoginRequested implements Action {
@@ -65,6 +67,11 @@ export class UpdatePasswordError implements Action {
   ) {}
 }
 
+export class WakeUpServer implements Action {
+  readonly type = AuthActionTypes.WakeUpServer;
+  constructor() {}
+}
+
 export type AuthActions =
   | LoginRequested
   | LoginSuccess
@@ -73,4 +80,5 @@ export type AuthActions =
   | Logout
   | UpdatePasswordRequested
   | UpdatePasswordSuccess
-  | UpdatePasswordError;
+  | UpdatePasswordError
+  | WakeUpServer;

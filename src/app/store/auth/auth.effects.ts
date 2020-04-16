@@ -14,9 +14,9 @@ import {
   UpdatePasswordSuccess,
   UpdatePasswordError,
   LoginByToken,
+  WakeUpServer,
 } from './auth.actions';
-import { Action } from 'rxjs/internal/scheduler/Action';
-import { DefaultService } from '../../rest-api';
+import { AuthService, DefaultService } from '../../rest-api';
 
 const { Storage } = Plugins;
 
@@ -27,7 +27,7 @@ export class AuthEffects {
     ofType<LoginRequested>(AuthActionTypes.LoginRequested),
     map((action) => action.payload.login),
     switchMap((login) =>
-      this.defaultService.authControllerLogin(login).pipe(
+      this.authService.authControllerLogin(login).pipe(
         map((data) => {
           return new LoginSuccess({
             user: data.user,
@@ -79,6 +79,13 @@ export class AuthEffects {
     })
   );
 
+  wakeUpServer$ = this.actions$.pipe(
+    ofType<WakeUpServer>(AuthActionTypes.WakeUpServer),
+    tap(() => {
+      this.defaultService.appControllerWakeUpServer();
+    })
+  );
+
   // @Effect()
   // UpdatePasswordRequested = this.actions$.pipe(
   //   ofType<UpdatePasswordRequested>(AuthActionTypes.UpdatePasswordRequested),
@@ -107,6 +114,7 @@ export class AuthEffects {
   // );
 
   constructor(
+    private authService: AuthService,
     private defaultService: DefaultService,
     private actions$: Actions,
     private router: Router

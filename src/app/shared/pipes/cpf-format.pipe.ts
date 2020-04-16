@@ -1,5 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { LENGTH_CPF_WITHOUT_FORMAT } from '../constants/CPF.constants';
+import {
+  LENGTH_CPF_WITHOUT_FORMAT,
+  REGEX_CPF_CHARACTERS,
+} from '../constants/CPF.constants';
 
 @Pipe({ name: 'cpfFormat' })
 export class CPFFormatPipe implements PipeTransform {
@@ -7,9 +10,8 @@ export class CPFFormatPipe implements PipeTransform {
     if (!value) {
       return '';
     }
-    const regex = /(\.|\-)/gm;
 
-    let cpfString = value.replace(regex, '');
+    let cpfString = this.removeCharacters(value);
 
     if (addZeros && cpfString.length < LENGTH_CPF_WITHOUT_FORMAT) {
       cpfString =
@@ -37,5 +39,9 @@ export class CPFFormatPipe implements PipeTransform {
     const thirdThreeDigitsGroup = cpfString.substr(0, 3);
     cpfString = cpfString.substr(3);
     return `${firstThreeDigitsGroup}.${secondThreeDigitsGroup}.${thirdThreeDigitsGroup}-${cpfString}`;
+  }
+
+  removeCharacters(cpf: string): string {
+    return cpf.replace(REGEX_CPF_CHARACTERS, '');
   }
 }

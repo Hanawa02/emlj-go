@@ -42,12 +42,19 @@
 
   .container {
     position: relative;
-    padding: 2.5em;
     flex: 1;
     margin: 0 auto;
-    margin-top: 64px;
     overflow: auto;
     width: 100%;
     max-width: 1280px;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-top: 64px;
+  }
+
+  @media (min-width: 600px) {
+    .container {
+      padding: 2.5em;
+    }
   }
 }

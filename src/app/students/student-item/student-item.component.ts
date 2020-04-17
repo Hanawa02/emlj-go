@@ -23,6 +23,11 @@ export class StudentItemComponent implements OnInit, OnDestroy {
 
   studentForm: FormGroup;
   formErrors: any;
+  descendencyEnum = Object.values(Aluno.DescendenciaEnum);
+  ufEnum = Object.values(Aluno.UfEnum);
+  statusEnum = Object.values(Aluno.SituacaoDoCursoEnum);
+  semesterEnum = Object.values(Aluno.SemestreDeIngressoEnum);
+  knowledgeLevelsEnum = Object.values(Aluno.ConversacaoEnum);
 
   @ViewChild('dataNascimentoDatePicker')
   dataNascimentoDatePicker: MatDatepicker<Date>;
@@ -34,6 +39,7 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    console.log(Aluno.DescendenciaEnum);
     this.store
       .pipe(
         select(getSelectedStudent),

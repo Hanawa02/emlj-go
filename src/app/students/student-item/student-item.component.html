@@ -100,7 +100,11 @@
 
   <mat-form-field class="form-field-25">
     <mat-label>Descendência</mat-label>
-    <input matInput type="text" formControlName="descendencia" />
+    <mat-select formControlName="descendencia">
+      <mat-option *ngFor="let item of descendencyEnum" [value]="item">
+        {{ item }}
+      </mat-option>
+    </mat-select>
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
@@ -139,8 +143,12 @@
   </mat-form-field>
 
   <mat-form-field class="form-field-25">
-    <mat-label>UF *** lista</mat-label>
-    <input matInput type="text" formControlName="uf" />
+    <mat-label>UF</mat-label>
+    <mat-select formControlName="uf">
+      <mat-option *ngFor="let item of ufEnum" [value]="item">
+        {{ item }}
+      </mat-option>
+    </mat-select>
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
@@ -198,32 +206,48 @@
   </mat-form-field>
 
   <mat-form-field class="form-field-25">
-    <mat-label>Conversação *** lista</mat-label>
-    <input matInput type="text" formControlName="conversacao" />
+    <mat-label>Conversação</mat-label>
+    <mat-select formControlName="conversacao">
+      <mat-option *ngFor="let item of knowledgeLevelsEnum" [value]="item">
+        {{ item }}
+      </mat-option>
+    </mat-select>
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
   </mat-form-field>
 
   <mat-form-field class="form-field-25">
-    <mat-label>Hiragana *** lista</mat-label>
-    <input matInput type="text" formControlName="hiragana" />
+    <mat-label>Hiragana</mat-label>
+    <mat-select formControlName="hiragana">
+      <mat-option *ngFor="let item of knowledgeLevelsEnum" [value]="item">
+        {{ item }}
+      </mat-option>
+    </mat-select>
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
   </mat-form-field>
 
   <mat-form-field class="form-field-25">
-    <mat-label>Katakana *** lista</mat-label>
-    <input matInput type="text" formControlName="katakana" />
+    <mat-label>Katakana</mat-label>
+    <mat-select formControlName="katakana">
+      <mat-option *ngFor="let item of knowledgeLevelsEnum" [value]="item">
+        {{ item }}
+      </mat-option>
+    </mat-select>
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
   </mat-form-field>
 
   <mat-form-field class="form-field-25">
-    <mat-label>Kanji *** lista</mat-label>
-    <input matInput type="text" formControlName="kanji" />
+    <mat-label>Kanji</mat-label>
+    <mat-select formControlName="kanji">
+      <mat-option *ngFor="let item of knowledgeLevelsEnum" [value]="item">
+        {{ item }}
+      </mat-option>
+    </mat-select>
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
@@ -246,18 +270,24 @@
   </mat-form-field>
 
   <mat-form-field class="form-field-25">
-    <mat-label>Semestre de Ingresso *** lista ou check-box (1/ 2)</mat-label>
-    <input matInput type="number" formControlName="semestreDeIngresso" />
+    <mat-label>Semestre de Ingresso</mat-label>
+    <mat-select formControlName="semestreDeIngresso">
+      <mat-option *ngFor="let item of semesterEnum" [value]="item">
+        {{ item }}
+      </mat-option>
+    </mat-select>
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
   </mat-form-field>
 
   <mat-form-field class="form-field-25">
-    <mat-label
-      >Situação do Curso *** lista ou check-box (ativo/ inativo)</mat-label
-    >
-    <input matInput type="text" formControlName="situacaoDoCurso" />
+    <mat-label>Situação do Curso</mat-label>
+    <mat-select formControlName="situacaoDoCurso">
+      <mat-option *ngFor="let item of statusEnum" [value]="item">
+        {{ item }}
+      </mat-option>
+    </mat-select>
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->

@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [StudentsComponent, StudentItemComponent],
   imports: [
@@ -27,6 +28,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatInputModule,
     MatDatepickerModule,
     MatSortModule,
+    MatSelectModule,
   ],
 })
 export class StudentsModule {}

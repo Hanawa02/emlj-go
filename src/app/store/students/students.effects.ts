@@ -36,10 +36,11 @@ export class StudentsEffects {
             duration: 5000,
             verticalPosition: 'top',
           });
-          this.snackBar.open(error, 'ok', {
-            duration: 5000,
-            verticalPosition: 'top',
-          });
+          console.log(error);
+          // this.snackBar.open(JSON.stringify(error), 'ok', {
+          //   duration: 5000,
+          //   verticalPosition: 'top',
+          // });
 
           return of(
             new LoadStudentsError({
@@ -71,10 +72,11 @@ export class StudentsEffects {
             duration: 5000,
             verticalPosition: 'top',
           });
-          this.snackBar.open(error, 'ok', {
-            duration: 5000,
-            verticalPosition: 'top',
-          });
+          console.log(error);
+          // this.snackBar.open(JSON.stringify(error), 'ok', {
+          //   duration: 5000,
+          //   verticalPosition: 'top',
+          // });
           return of(
             new CreateStudentError({
               error,

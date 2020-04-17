@@ -12,7 +12,7 @@ import { getAllStudents } from '../store/students/students.selectors';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Month } from '../shared/models/month.model';
-import { Months } from '../shared/constants/months.const';
+import { Months, MonthSufix } from '../shared/constants/months.const';
 
 @Component({
   selector: 'app-birthday-person',
@@ -50,7 +50,7 @@ export class BirthdayPersonComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(value: string) {
-    this.dataSource.filter = value;
+    this.dataSource.filter = MonthSufix + value;
   }
 
   ngOnDestroy() {
@@ -61,8 +61,8 @@ export class BirthdayPersonComponent implements OnInit, OnDestroy {
     if (!data.dataNascimento) {
       return false;
     }
-
-    const mes = +filter;
+    const filterNumber = filter.replace(MonthSufix, '');
+    const mes = +filterNumber;
     const aniversario = new Date(data.dataNascimento);
 
     return aniversario.getMonth() === mes;

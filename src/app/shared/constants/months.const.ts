@@ -1,4 +1,5 @@
 import { Month } from '../models/month.model';
+export const MonthSufix = 'm-';
 
 export const January = new Month('Janeiro', 0);
 export const February = new Month('Fevereiro', 1);

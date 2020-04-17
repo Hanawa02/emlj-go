@@ -1,0 +1,9 @@
+<div>
+  <mat-label>{{ label }}</mat-label>
+  <mat-radio-group (change)="writeValue($event.value)" [value]="value">
+    <mat-radio-button *ngFor="let item of values" [value]="item.value">{{
+      item.description
+    }}</mat-radio-button>
+  </mat-radio-group>
+  <div class="underline"></div>
+</div>

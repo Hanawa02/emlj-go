@@ -11,13 +11,11 @@ import { StoreModule, Store } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/auth/auth.effects';
 import { AuthModule } from './auth/auth.module';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { StudentsModule } from './students/students.module';
 import { StudentsStoreModule } from './store/students/students-store.module';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
-import { MatIconModule } from '@angular/material/icon';
-import { MatNativeDateModule } from '@angular/material/core';
 import { BirthdayPersonModule } from './birthday-person/birthday-person.module';
+import { SharedModule } from './shared/shared.module';
 
 export function apiConfigFactory(): Configuration {
   return new Configuration({
@@ -36,12 +34,11 @@ export function apiConfigFactory(): Configuration {
     ApiModule.forRoot(apiConfigFactory),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([AuthEffects]),
+    SharedModule,
     AuthStoreModule,
     AuthModule,
     StudentsStoreModule,
     StudentsModule,
-    MatIconModule,
-    MatNativeDateModule,
     BirthdayPersonModule,
   ],
   providers: [

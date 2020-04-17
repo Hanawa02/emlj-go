@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import {
   LENGTH_CPF_WITHOUT_FORMAT,
   REGEX_CPF_CHARACTERS,
-} from '../constants/CPF.constants';
+} from '../constants/CPF.constant';
 
 @Pipe({ name: 'cpfFormat' })
 export class CPFFormatPipe implements PipeTransform {

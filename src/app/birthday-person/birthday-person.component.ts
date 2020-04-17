@@ -12,7 +12,7 @@ import { getAllStudents } from '../store/students/students.selectors';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Month } from '../shared/models/month.model';
-import { Months, MonthSufix } from '../shared/constants/months.const';
+import { Months, MonthSufix } from '../shared/constants/months.constant';
 
 @Component({
   selector: 'app-birthday-person',

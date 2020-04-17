@@ -15,6 +15,7 @@ import {
 } from './students.actions';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { DefaultService, AlunosService } from '../../rest-api';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const { Storage } = Plugins;
 
@@ -31,10 +32,14 @@ export class StudentsEffects {
           });
         }),
         catchError((error) => {
-          // this.snackBar.open('Não foi possível realizar o login', 'ok', {
-          //   duration: 5000,
-          //   verticalPosition: 'top',
-          // });
+          this.snackBar.open('Não foi possível carregar os alunos', 'ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+          });
+          this.snackBar.open(error, 'ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+          });
 
           return of(
             new LoadStudentsError({
@@ -53,16 +58,23 @@ export class StudentsEffects {
     switchMap((student) =>
       this.studentService.alunosControllerCreate(student).pipe(
         map((data) => {
+          this.snackBar.open('Aluno criado com sucesso', 'ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+          });
           return new CreateStudentSuccess({
             student: data,
           });
         }),
         catchError((error) => {
-          // this.snackBar.open('Não foi possível realizar o login', 'ok', {
-          //   duration: 5000,
-          //   verticalPosition: 'top',
-          // });
-
+          this.snackBar.open('Não foi possível criar o aluno', 'ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+          });
+          this.snackBar.open(error, 'ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+          });
           return of(
             new CreateStudentError({
               error,
@@ -72,9 +84,11 @@ export class StudentsEffects {
       )
     )
   );
+
   constructor(
     private studentService: AlunosService,
     private actions$: Actions,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 }

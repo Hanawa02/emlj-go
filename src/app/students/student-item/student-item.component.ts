@@ -9,8 +9,6 @@ import { Aluno } from 'src/app/rest-api';
 import { getSelectedStudent } from 'src/app/store/students/students.selectors';
 import { CreateStudentRequested } from 'src/app/store/students/students.actions';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
-import { LENGTH_CPF_WITH_FORMAT } from 'src/app/shared/constants/CPF.constants';
 import { CPFFormatPipe } from 'src/app/shared/pipes/cpf-format.pipe';
 
 @Component({
@@ -29,6 +27,8 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   semesterEnum = Object.values(Aluno.SemestreDeIngressoEnum);
   knowledgeLevelsEnum = Object.values(Aluno.ConversacaoEnum);
 
+  studiedJapaneseBefore: boolean;
+
   @ViewChild('dataNascimentoDatePicker')
   dataNascimentoDatePicker: MatDatepicker<Date>;
 
@@ -39,7 +39,6 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    console.log(Aluno.DescendenciaEnum);
     this.store
       .pipe(
         select(getSelectedStudent),
@@ -97,6 +96,8 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   }
 
   onFormValuesChanged(): void {
+    this.studiedJapaneseBefore = this.studentForm.value.jaEstudouJapones;
+
     for (const field in this.formErrors) {
       if (!this.formErrors.hasOwnProperty(field)) {
         continue;

@@ -50,7 +50,7 @@ export class StudentItemComponent implements OnInit, OnDestroy {
       .subscribe();
 
     this.studentForm = this.formBuilder.group({
-      nome: ['', [Validators.minLength, Validators.requiredTrue]],
+      nome: ['', [Validators.minLength(3), Validators.requiredTrue]],
       dataNascimento: ['', []],
       RG: ['', []],
       OrgaoEmissor: ['', []],
@@ -130,10 +130,11 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    console.log(this.studentForm.value);
     this.store.dispatch(
       new CreateStudentRequested({ student: this.studentForm.value })
     );
+
+    this.studentForm.reset();
   }
 
   ngOnDestroy() {

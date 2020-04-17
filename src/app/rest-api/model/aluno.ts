@@ -23,28 +23,107 @@ export interface Aluno {
     profissao?: string;
     pai?: string;
     mae?: string;
-    descendencia?: string;
+    descendencia?: Aluno.DescendenciaEnum;
     socioANBG?: boolean;
     endereco?: string;
     setor?: string;
     cep?: number;
     cidade?: string;
-    uf?: string;
+    uf?: Aluno.UfEnum;
     telefone?: number;
     celular?: number;
     email?: string;
     jaEstudouJapones?: boolean;
     ondeEstudouJapones?: string;
-    conversacao?: string;
-    hiragana?: string;
-    katakana?: string;
-    kanji?: string;
+    conversacao?: Aluno.ConversacaoEnum;
+    hiragana?: Aluno.HiraganaEnum;
+    katakana?: Aluno.KatakanaEnum;
+    kanji?: Aluno.KanjiEnum;
     comoSoubeDaEscola?: string;
     anoDeIngresso?: number;
-    semestreDeIngresso?: number;
-    situacaoDoCurso?: string;
+    semestreDeIngresso?: Aluno.SemestreDeIngressoEnum;
+    situacaoDoCurso?: Aluno.SituacaoDoCursoEnum;
     familiaresMatriculadosNaEscola?: Array<string>;
     JLPTResults?: Array<string>;
     turmaAtual?: string;
 }
+export namespace Aluno {
+    export type DescendenciaEnum = 'Nenhuma' | 'Issei' | 'Nisei' | 'Sansei' | 'Yonsei';
+    export const DescendenciaEnum = {
+        Nenhuma: 'Nenhuma' as DescendenciaEnum,
+        Issei: 'Issei' as DescendenciaEnum,
+        Nisei: 'Nisei' as DescendenciaEnum,
+        Sansei: 'Sansei' as DescendenciaEnum,
+        Yonsei: 'Yonsei' as DescendenciaEnum
+    };
+    export type UfEnum = 'Acre' | 'Alagoas' | 'Amazonas' | 'Amapá' | 'Bahia' | 'Ceará' | 'Distrito Federal' | 'Espírito Santo' | 'Goiás' | 'Maranhão' | 'Minas Gerais' | 'Mato Grosso do Sul' | 'Mato Grosso' | 'Pará' | 'Paraíba' | 'Pernambuco' | 'Piauí' | 'Paraná' | 'Rio de Janeiro' | 'Rio Grande do Norte' | 'Rondônia' | 'Roraima' | 'Rio Grande do Sul' | 'Santa Catarina' | 'Sergipe' | 'São Paulo' | 'Tocantins';
+    export const UfEnum = {
+        Acre: 'Acre' as UfEnum,
+        Alagoas: 'Alagoas' as UfEnum,
+        Amazonas: 'Amazonas' as UfEnum,
+        Amap: 'Amapá' as UfEnum,
+        Bahia: 'Bahia' as UfEnum,
+        Cear: 'Ceará' as UfEnum,
+        DistritoFederal: 'Distrito Federal' as UfEnum,
+        EspritoSanto: 'Espírito Santo' as UfEnum,
+        Gois: 'Goiás' as UfEnum,
+        Maranho: 'Maranhão' as UfEnum,
+        MinasGerais: 'Minas Gerais' as UfEnum,
+        MatoGrossoDoSul: 'Mato Grosso do Sul' as UfEnum,
+        MatoGrosso: 'Mato Grosso' as UfEnum,
+        Par: 'Pará' as UfEnum,
+        Paraba: 'Paraíba' as UfEnum,
+        Pernambuco: 'Pernambuco' as UfEnum,
+        Piau: 'Piauí' as UfEnum,
+        Paran: 'Paraná' as UfEnum,
+        RioDeJaneiro: 'Rio de Janeiro' as UfEnum,
+        RioGrandeDoNorte: 'Rio Grande do Norte' as UfEnum,
+        Rondnia: 'Rondônia' as UfEnum,
+        Roraima: 'Roraima' as UfEnum,
+        RioGrandeDoSul: 'Rio Grande do Sul' as UfEnum,
+        SantaCatarina: 'Santa Catarina' as UfEnum,
+        Sergipe: 'Sergipe' as UfEnum,
+        SoPaulo: 'São Paulo' as UfEnum,
+        Tocantins: 'Tocantins' as UfEnum
+    };
+    export type ConversacaoEnum = 'Nenhum' | 'Básico' | 'Intermediário' | 'Avançado';
+    export const ConversacaoEnum = {
+        Nenhum: 'Nenhum' as ConversacaoEnum,
+        Bsico: 'Básico' as ConversacaoEnum,
+        Intermedirio: 'Intermediário' as ConversacaoEnum,
+        Avanado: 'Avançado' as ConversacaoEnum
+    };
+    export type HiraganaEnum = 'Nenhum' | 'Básico' | 'Intermediário' | 'Avançado';
+    export const HiraganaEnum = {
+        Nenhum: 'Nenhum' as HiraganaEnum,
+        Bsico: 'Básico' as HiraganaEnum,
+        Intermedirio: 'Intermediário' as HiraganaEnum,
+        Avanado: 'Avançado' as HiraganaEnum
+    };
+    export type KatakanaEnum = 'Nenhum' | 'Básico' | 'Intermediário' | 'Avançado';
+    export const KatakanaEnum = {
+        Nenhum: 'Nenhum' as KatakanaEnum,
+        Bsico: 'Básico' as KatakanaEnum,
+        Intermedirio: 'Intermediário' as KatakanaEnum,
+        Avanado: 'Avançado' as KatakanaEnum
+    };
+    export type KanjiEnum = 'Nenhum' | 'Básico' | 'Intermediário' | 'Avançado';
+    export const KanjiEnum = {
+        Nenhum: 'Nenhum' as KanjiEnum,
+        Bsico: 'Básico' as KanjiEnum,
+        Intermedirio: 'Intermediário' as KanjiEnum,
+        Avanado: 'Avançado' as KanjiEnum
+    };
+    export type SemestreDeIngressoEnum = 'Primeiro' | 'Segundo';
+    export const SemestreDeIngressoEnum = {
+        Primeiro: 'Primeiro' as SemestreDeIngressoEnum,
+        Segundo: 'Segundo' as SemestreDeIngressoEnum
+    };
+    export type SituacaoDoCursoEnum = 'Ativo' | 'Inativo';
+    export const SituacaoDoCursoEnum = {
+        Ativo: 'Ativo' as SituacaoDoCursoEnum,
+        Inativo: 'Inativo' as SituacaoDoCursoEnum
+    };
+}
+
 

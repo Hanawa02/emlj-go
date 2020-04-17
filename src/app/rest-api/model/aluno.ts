@@ -12,7 +12,7 @@
 
 
 export interface Aluno { 
-    id?: string;
+    id?: object;
     nome: string;
     dataNascimento?: string;
     RG?: string;

@@ -14,6 +14,7 @@
     <mat-label for>Data Nascimento</mat-label>
     <input
       (click)="openDataNascimentoDatePicker()"
+      (focus)="openDataNascimentoDatePicker()"
       matInput
       required
       [matDatepicker]="dataNascimentoDatePicker"

@@ -10,6 +10,8 @@ import { getSelectedStudent } from 'src/app/store/students/students.selectors';
 import { CreateStudentRequested } from 'src/app/store/students/students.actions';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { CPFFormatPipe } from 'src/app/shared/pipes/cpf-format.pipe';
+import { CEPFormatPipe } from 'src/app/shared/pipes/cep-format.pipe';
+import { PhoneFormatPipe } from 'src/app/shared/pipes/phone-format.pipe';
 
 @Component({
   selector: 'app-student-item',
@@ -28,6 +30,7 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   knowledgeLevelsEnum = Object.values(Aluno.ConversacaoEnum);
 
   studiedJapaneseBefore: boolean;
+  activeStudent: boolean;
 
   @ViewChild('dataNascimentoDatePicker')
   dataNascimentoDatePicker: MatDatepicker<Date>;
@@ -35,7 +38,9 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<StudentsState>,
     private formBuilder: FormBuilder,
-    private cpfFormaterPipe: CPFFormatPipe
+    private cpfFormaterPipe: CPFFormatPipe,
+    private cepFormaterPipe: CEPFormatPipe,
+    private phoneFormatPipe: PhoneFormatPipe
   ) {}
 
   ngOnInit(): void {
@@ -97,6 +102,9 @@ export class StudentItemComponent implements OnInit, OnDestroy {
 
   onFormValuesChanged(): void {
     this.studiedJapaneseBefore = this.studentForm.value.jaEstudouJapones;
+    this.activeStudent =
+      this.studentForm.value.situacaoDoCurso ===
+      Aluno.SituacaoDoCursoEnum.Ativo;
 
     for (const field in this.formErrors) {
       if (!this.formErrors.hasOwnProperty(field)) {
@@ -123,20 +131,52 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   }
 
   formatCPF(): void {
-    this.studentForm.value.CPF = this.cpfFormaterPipe.transform(
-      this.studentForm.value.CPF,
-      true
-    );
+    this.studentForm.patchValue({
+      CPF: this.cpfFormaterPipe.transform(this.studentForm.value.CPF, true),
+    });
+  }
+
+  formatCEP(): void {
+    this.studentForm.patchValue({
+      CEP: this.cepFormaterPipe.transform(this.studentForm.value.CEP, true),
+    });
+  }
+
+  formatTelefone(): void {
+    this.studentForm.patchValue({
+      telefone: this.phoneFormatPipe.transform(
+        this.studentForm.value.telefone,
+        true
+      ),
+    });
+  }
+
+  formatCelular(): void {
+    this.studentForm.patchValue({
+      celular: this.phoneFormatPipe.transform(
+        this.studentForm.value.celular,
+        true
+      ),
+    });
   }
 
   save() {
-    this.store.dispatch(
-      new CreateStudentRequested({ student: this.studentForm.value })
-    );
+    const student = this.treatStudentFormValuesBeforeSave();
+    this.store.dispatch(new CreateStudentRequested({ student }));
 
     this.studentForm.reset();
   }
 
+  treatStudentFormValuesBeforeSave(): Aluno {
+    const student = { ...this.studentForm.value };
+
+    student.CPF = this.cpfFormaterPipe.removeCharacters(student.CPF);
+    student.cep = this.cepFormaterPipe.removeCharacters(student.cep);
+    student.celular = this.phoneFormatPipe.removeCharacters(student.celular);
+    student.telefone = this.phoneFormatPipe.removeCharacters(student.telefone);
+
+    return student;
+  }
   ngOnDestroy() {
     // do not remove, needed for untilDestroy(this)
   }

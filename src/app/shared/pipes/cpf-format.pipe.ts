@@ -18,26 +18,27 @@ export class CPFFormatPipe implements PipeTransform {
         '0'.repeat(LENGTH_CPF_WITHOUT_FORMAT - cpfString.length) + cpfString;
     }
 
-    if (cpfString.length <= 3) {
+    const digits = 3;
+    if (cpfString.length <= digits) {
       return cpfString;
     }
 
-    const firstThreeDigitsGroup = cpfString.substr(0, 3);
-    cpfString = cpfString.substr(3);
+    const firstThreeDigitsGroup = cpfString.substr(0, digits);
+    cpfString = cpfString.substr(digits);
 
-    if (cpfString.length <= 3) {
+    if (cpfString.length <= digits) {
       return `${firstThreeDigitsGroup}.${cpfString}`;
     }
 
-    const secondThreeDigitsGroup = cpfString.substr(0, 3);
-    cpfString = cpfString.substr(3);
+    const secondThreeDigitsGroup = cpfString.substr(0, digits);
+    cpfString = cpfString.substr(digits);
 
-    if (cpfString.length <= 3) {
+    if (cpfString.length <= digits) {
       return `${firstThreeDigitsGroup}.${secondThreeDigitsGroup}.${cpfString}`;
     }
 
-    const thirdThreeDigitsGroup = cpfString.substr(0, 3);
-    cpfString = cpfString.substr(3);
+    const thirdThreeDigitsGroup = cpfString.substr(0, digits);
+    cpfString = cpfString.substr(digits);
     return `${firstThreeDigitsGroup}.${secondThreeDigitsGroup}.${thirdThreeDigitsGroup}-${cpfString}`;
   }
 

@@ -20,8 +20,9 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { ApiModule } from '../rest-api';
 import { CPFFormatPipe } from './pipes/cpf-format.pipe';
-import { RadioButtonComponent } from './components/radio-button/radio-button.component';
 import { RadioButtonModule } from './components/radio-button/radio-button.module';
+import { CEPFormatPipe } from './pipes/cep-format.pipe';
+import { PhoneFormatPipe } from './pipes/phone-format.pipe';
 
 const angularMaterialModules = [
   MatIconModule,
@@ -37,7 +38,7 @@ const angularMaterialModules = [
   MatSelectModule,
 ];
 
-const pipes = [CPFFormatPipe];
+const pipes = [CPFFormatPipe, CEPFormatPipe, PhoneFormatPipe];
 @NgModule({
   declarations: [...pipes],
   imports: [CommonModule, ...angularMaterialModules, RadioButtonModule],
@@ -52,6 +53,6 @@ const pipes = [CPFFormatPipe];
     CdkTableModule,
     RadioButtonModule,
   ],
-  providers: [CPFFormatPipe],
+  providers: [...pipes],
 })
 export class SharedModule {}

@@ -156,24 +156,42 @@
   </mat-form-field>
 
   <mat-form-field class="form-field-25">
-    <mat-label>CEP *** formatar</mat-label>
-    <input matInput type="number" formControlName="cep" />
+    <mat-label>CEP</mat-label>
+    <input
+      matInput
+      type="text"
+      formControlName="cep"
+      (blur)="formatCEP()"
+      [value]="studentForm.value.cep | cepFormat"
+    />
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
   </mat-form-field>
 
   <mat-form-field class="form-field-25">
-    <mat-label>Telefone *** formatar</mat-label>
-    <input matInput type="number" formControlName="telefone" />
+    <mat-label>Telefone</mat-label>
+    <input
+      matInput
+      type="text"
+      formControlName="telefone"
+      (blur)="formatTelefone()"
+      [value]="studentForm.value.telefone | phoneFormat"
+    />
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
   </mat-form-field>
 
   <mat-form-field class="form-field-25">
-    <mat-label>Celular *** formatar</mat-label>
-    <input matInput type="number" formControlName="celular" />
+    <mat-label>Celular</mat-label>
+    <input
+      matInput
+      type="text"
+      formControlName="celular"
+      (blur)="formatCelular()"
+      [value]="studentForm.value.celular | phoneFormat"
+    />
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
@@ -290,10 +308,8 @@
       > -->
   </mat-form-field>
 
-  <mat-form-field class="form-field-50">
-    <mat-label
-      >Turma Atual *** so mostrar se situacao do curso === ativo</mat-label
-    >
+  <mat-form-field class="form-field-50" *ngIf="activeStudent">
+    <mat-label>Turma Atual</mat-label>
     <input matInput type="text" formControlName="turmaAtual" />
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error

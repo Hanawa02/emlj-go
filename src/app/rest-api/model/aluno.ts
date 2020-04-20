@@ -46,6 +46,7 @@ export interface Aluno {
     familiaresMatriculadosNaEscola?: Array<string>;
     JLPTResults?: Array<string>;
     turmaAtual?: string;
+    observacao?: string;
 }
 export namespace Aluno {
     export type DescendenciaEnum = 'Nenhuma' | 'Issei' | 'Nisei' | 'Sansei' | 'Yonsei';

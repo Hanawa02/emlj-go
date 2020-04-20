@@ -17,6 +17,8 @@ export enum StudentsActionTypes {
   DeleteStudent = '[Student] Delete Student',
   DeleteStudentSuccess = '[API] Delete Student Success',
   DeleteStudentError = '[API] Delete Student Error',
+
+  SelectStudent = '[Student] Select Student',
 }
 
 export class LoadStudentsRequested implements Action {
@@ -51,7 +53,7 @@ export class CreateStudentError implements Action {
 
 export class UpdateStudentRequested implements Action {
   readonly type = StudentsActionTypes.UpdateStudent;
-  constructor(public payload: { student: Partial<Aluno> }) {}
+  constructor(public payload: { student: Aluno }) {}
 }
 
 export class UpdateStudentSuccess implements Action {
@@ -66,17 +68,22 @@ export class UpdateStudentError implements Action {
 
 export class DeleteStudentRequested implements Action {
   readonly type = StudentsActionTypes.DeleteStudent;
-  constructor(public payload: { studentId: string }) {}
+  constructor(public payload: { studentId: object }) {}
 }
 
 export class DeleteStudentSuccess implements Action {
   readonly type = StudentsActionTypes.DeleteStudentSuccess;
-  constructor() {}
+  constructor(public payload: { studentId: object }) {}
 }
 
 export class DeleteStudentError implements Action {
   readonly type = StudentsActionTypes.DeleteStudentError;
   constructor(public payload: { error: string }) {}
+}
+
+export class SelectStudent implements Action {
+  readonly type = StudentsActionTypes.SelectStudent;
+  constructor(public payload: { studentId: string }) {}
 }
 
 export type StudentsActions =
@@ -91,4 +98,5 @@ export type StudentsActions =
   | UpdateStudentError
   | DeleteStudentRequested
   | DeleteStudentSuccess
-  | DeleteStudentError;
+  | DeleteStudentError
+  | SelectStudent;

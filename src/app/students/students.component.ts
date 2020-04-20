@@ -4,13 +4,16 @@ import { StudentsState } from '../store/students/students.reducer';
 import { untilDestroy } from '@ngrx-utils/store';
 import { tap, takeUntil } from 'rxjs/operators';
 import { getAllStudents } from '../store/students/students.selectors';
-import { LoadStudentsRequested } from '../store/students/students.actions';
+import { DeleteStudentRequested } from '../store/students/students.actions';
 import { Aluno } from '../rest-api';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../shared/components/dialogs/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogData } from '../shared/components/dialogs/confirm-dialog/models/confirm-dialog-data.model';
 
 @Component({
   selector: 'app-students',
@@ -21,10 +24,10 @@ export class StudentsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
     'nome',
     'dataNascimento',
-    'CPF',
     'telefone',
     'celular',
     'turmaAtual',
+    'options',
   ];
   dataSource = new MatTableDataSource<Aluno>();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -36,14 +39,16 @@ export class StudentsComponent implements OnInit, OnDestroy {
     this.router.navigate(['novoAluno']);
   }
 
-  constructor(private store: Store<StudentsState>, private router: Router) {}
+  constructor(
+    private store: Store<StudentsState>,
+    private router: Router,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.dataSource.filterPredicate = (data: Aluno, filter: string) =>
       data.nome?.toLowerCase().includes(filter) ||
       data.CPF?.toString().includes(filter);
-
-    this.store.dispatch(new LoadStudentsRequested());
 
     this.store
       .pipe(
@@ -68,5 +73,28 @@ export class StudentsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // Do not remove, needed for untilDestroy(this)
+  }
+
+  edit(studentId: object) {
+    this.router.navigate(['editarAluno', studentId.toString()]);
+  }
+
+  delete(student: Aluno) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: new ConfirmDialogData(
+        'Excluir Aluno',
+        'Deseja confirmar a exclusão do aluno <strong>' +
+          student.nome +
+          '</strong>?'
+      ),
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.store.dispatch(
+          new DeleteStudentRequested({ studentId: student.id })
+        );
+      }
+    });
   }
 }

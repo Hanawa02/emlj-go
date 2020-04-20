@@ -3,16 +3,15 @@ import {
   LENGTH_CEP_WITHOUT_FORMAT,
   REGEX_CEP_CHARACTERS,
 } from '../constants/CEP.constant';
+import { treatNumericValueToString } from '../constants/auxiliar-functions.constant';
 
 @Pipe({ name: 'cepFormat' })
 export class CEPFormatPipe implements PipeTransform {
   transform(value: string, addZeros: boolean = false): string {
-    const type = typeof value;
-    if (type === 'number') {
-      value = value.toString();
-    }
+    value = treatNumericValueToString(value);
+
     if (!value) {
-      return '';
+      return;
     }
 
     let cepString = this.removeCharacters(value);
@@ -42,6 +41,8 @@ export class CEPFormatPipe implements PipeTransform {
   }
 
   removeCharacters(cep: string): string {
+    cep = treatNumericValueToString(cep);
+
     return cep.replace(REGEX_CEP_CHARACTERS, '');
   }
 }

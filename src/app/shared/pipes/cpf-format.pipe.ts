@@ -3,16 +3,15 @@ import {
   LENGTH_CPF_WITHOUT_FORMAT,
   REGEX_CPF_CHARACTERS,
 } from '../constants/CPF.constant';
+import { treatNumericValueToString } from '../constants/auxiliar-functions.constant';
 
 @Pipe({ name: 'cpfFormat' })
 export class CPFFormatPipe implements PipeTransform {
   transform(value: string, addZeros: boolean = false): string {
-    const type = typeof value;
-    if (type === 'number') {
-      value = value.toString();
-    }
+    value = treatNumericValueToString(value);
+
     if (!value) {
-      return '';
+      return;
     }
 
     let cpfString = this.removeCharacters(value);
@@ -47,6 +46,8 @@ export class CPFFormatPipe implements PipeTransform {
   }
 
   removeCharacters(cpf: string): string {
+    cpf = treatNumericValueToString(cpf);
+
     return cpf.replace(REGEX_CPF_CHARACTERS, '');
   }
 }

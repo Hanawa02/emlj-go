@@ -23,6 +23,8 @@ export class AppComponent implements OnInit {
     const token = await Storage.get({ key: 'token' });
     if (token.value) {
       this.store.dispatch(new LoginByToken({ token: token.value }));
+    } else {
+      this.store.dispatch(new LoadStudentsRequested());
     }
   }
 

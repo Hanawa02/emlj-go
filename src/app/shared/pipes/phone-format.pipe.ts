@@ -8,16 +8,15 @@ import {
   LENGTH_PHONE_COMPLETE_WITHOUT_CELL_PHONE_DIGIT,
   LENGTH_PHONE_COMPLETE_WITH_CELL_PHONE_DIGIT,
 } from '../constants/phone.constant';
+import { treatNumericValueToString } from '../constants/auxiliar-functions.constant';
 
 @Pipe({ name: 'phoneFormat' })
 export class PhoneFormatPipe implements PipeTransform {
   transform(value: string, addDefaultDDD: boolean = false): string {
-    const type = typeof value;
-    if (type === 'number') {
-      value = value.toString();
-    }
+    value = treatNumericValueToString(value);
+
     if (!value) {
-      return '';
+      return;
     }
 
     let phoneString = this.removeCharacters(value);
@@ -81,6 +80,7 @@ export class PhoneFormatPipe implements PipeTransform {
   }
 
   removeCharacters(phone: string): string {
+    phone = treatNumericValueToString(phone);
     return phone.replace(REGEX_PHONE_CHARACTERS, '');
   }
 

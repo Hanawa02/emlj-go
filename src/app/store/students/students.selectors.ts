@@ -13,5 +13,11 @@ export const getAllStudents = createSelector(
 
 export const getSelectedStudent = createSelector(
   selectStudentsState,
-  (state) => state.selectedStudent
+  (state) => {
+    if (state.entities && state.selectedStudentId) {
+      return state.entities[state.selectedStudentId];
+    }
+
+    return null;
+  }
 );

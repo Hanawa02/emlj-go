@@ -24,6 +24,12 @@ const appRoutes: Routes = [
     component: StudentItemComponent,
   },
   {
+    path: 'editarAluno/:id',
+    canActivate: [AuthGuard],
+    canDeactivate: [StudentSavedGuard],
+    component: StudentItemComponent,
+  },
+  {
     path: 'aniversariantes',
     canActivate: [AuthGuard],
     component: BirthdayPersonComponent,

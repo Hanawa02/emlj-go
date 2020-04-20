@@ -12,10 +12,18 @@ import {
   CreateStudentRequested,
   CreateStudentSuccess,
   CreateStudentError,
+  DeleteStudentRequested,
+  DeleteStudentSuccess,
+  DeleteStudentError,
+  UpdateStudentRequested,
+  UpdateStudentSuccess,
+  UpdateStudentError,
 } from './students.actions';
 import { Action } from 'rxjs/internal/scheduler/Action';
-import { DefaultService, AlunosService } from '../../rest-api';
+import { AlunosService } from '../../rest-api';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
+import { StudentsState } from './students.reducer';
 
 const { Storage } = Plugins;
 
@@ -87,10 +95,79 @@ export class StudentsEffects {
     )
   );
 
+  @Effect()
+  deleteStudentRequest$ = this.actions$.pipe(
+    ofType<DeleteStudentRequested>(StudentsActionTypes.DeleteStudent),
+    map((action) => action.payload.studentId),
+    switchMap((studentId) =>
+      this.studentService.alunosControllerRemove(studentId).pipe(
+        map((data) => {
+          this.snackBar.open('Aluno excluído com sucesso', 'ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+          });
+          return new DeleteStudentSuccess({
+            studentId,
+          });
+        }),
+        catchError((error) => {
+          this.snackBar.open('Não foi possível excluir o aluno', 'ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+          });
+          console.log(error);
+          // this.snackBar.open(JSON.stringify(error), 'ok', {
+          //   duration: 5000,
+          //   verticalPosition: 'top',
+          // });
+          return of(
+            new DeleteStudentError({
+              error,
+            })
+          );
+        })
+      )
+    )
+  );
+
+  @Effect()
+  updateStudentRequest$ = this.actions$.pipe(
+    ofType<UpdateStudentRequested>(StudentsActionTypes.UpdateStudent),
+    map((action) => action.payload.student),
+    switchMap((student) =>
+      this.studentService.alunosControllerUpdate(student.id, student).pipe(
+        map((data) => {
+          this.snackBar.open('Aluno atualizado com sucesso', 'ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+          });
+          return new UpdateStudentSuccess({
+            student,
+          });
+        }),
+        catchError((error) => {
+          this.snackBar.open('Não foi possível atualizar o aluno', 'ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+          });
+          console.log(error);
+          // this.snackBar.open(JSON.stringify(error), 'ok', {
+          //   duration: 5000,
+          //   verticalPosition: 'top',
+          // });
+          return of(
+            new UpdateStudentError({
+              error,
+            })
+          );
+        })
+      )
+    )
+  );
+
   constructor(
     private studentService: AlunosService,
     private actions$: Actions,
-    private router: Router,
     private snackBar: MatSnackBar
   ) {}
 }

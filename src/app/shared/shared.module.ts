@@ -17,12 +17,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { ApiModule } from '../rest-api';
 import { CPFFormatPipe } from './pipes/cpf-format.pipe';
 import { RadioButtonModule } from './components/radio-button/radio-button.module';
 import { CEPFormatPipe } from './pipes/cep-format.pipe';
 import { PhoneFormatPipe } from './pipes/phone-format.pipe';
+import { ConfirmDialogModule } from './components/dialogs/confirm-dialog/confirm-dialog.module';
 
 const angularMaterialModules = [
   MatIconModule,
@@ -36,6 +38,7 @@ const angularMaterialModules = [
   MatDatepickerModule,
   MatSortModule,
   MatSelectModule,
+  MatProgressBarModule,
 ];
 
 const pipes = [CPFFormatPipe, CEPFormatPipe, PhoneFormatPipe];
@@ -52,6 +55,7 @@ const pipes = [CPFFormatPipe, CEPFormatPipe, PhoneFormatPipe];
     ReactiveFormsModule,
     CdkTableModule,
     RadioButtonModule,
+    ConfirmDialogModule,
   ],
   providers: [...pipes],
 })

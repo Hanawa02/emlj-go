@@ -1,7 +1,5 @@
-<h1>Novo Aluno</h1>
+<h1>{{ student ? 'Editar ' + student?.nome : 'Novo Aluno' }}</h1>
 <form name="studentForm" class="student-form" [formGroup]="studentForm">
-  <label *ngIf="student" class="form-field-25">id: {{ student.id }}</label>
-
   <mat-form-field class="form-field-50">
     <mat-label>Nome</mat-label>
     <input matInput type="text" formControlName="nome" required />
@@ -311,6 +309,14 @@
   <mat-form-field class="form-field-50" *ngIf="activeStudent">
     <mat-label>Turma Atual</mat-label>
     <input matInput type="text" formControlName="turmaAtual" />
+    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+        >É necessário informar o email</mat-error
+      > -->
+  </mat-form-field>
+
+  <mat-form-field class="form-field-100">
+    <mat-label>Observacao</mat-label>
+    <textarea matInput formControlName="observacao"></textarea>
     <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->

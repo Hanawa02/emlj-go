@@ -7,11 +7,16 @@ import { untilDestroy } from '@ngrx-utils/store';
 import { tap } from 'rxjs/operators';
 import { Aluno } from 'src/app/rest-api';
 import { getSelectedStudent } from 'src/app/store/students/students.selectors';
-import { CreateStudentRequested } from 'src/app/store/students/students.actions';
+import {
+  CreateStudentRequested,
+  UpdateStudentRequested,
+  SelectStudent,
+} from 'src/app/store/students/students.actions';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { CPFFormatPipe } from 'src/app/shared/pipes/cpf-format.pipe';
 import { CEPFormatPipe } from 'src/app/shared/pipes/cep-format.pipe';
 import { PhoneFormatPipe } from 'src/app/shared/pipes/phone-format.pipe';
+import { Router, ParamMap, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-student-item',
@@ -32,6 +37,8 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   studiedJapaneseBefore: boolean;
   activeStudent: boolean;
 
+  isEdit: boolean;
+
   @ViewChild('dataNascimentoDatePicker')
   dataNascimentoDatePicker: MatDatepicker<Date>;
 
@@ -40,20 +47,12 @@ export class StudentItemComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private cpfFormaterPipe: CPFFormatPipe,
     private cepFormaterPipe: CEPFormatPipe,
-    private phoneFormatPipe: PhoneFormatPipe
+    private phoneFormatPipe: PhoneFormatPipe,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.store
-      .pipe(
-        select(getSelectedStudent),
-        tap((student) => {
-          this.student = student;
-          // this.student = { id: 'testeId', nome: 'teste' };
-        })
-      )
-      .subscribe();
-
     this.studentForm = this.formBuilder.group({
       nome: ['', [Validators.minLength(3), Validators.requiredTrue]],
       dataNascimento: ['', []],
@@ -86,11 +85,31 @@ export class StudentItemComponent implements OnInit, OnDestroy {
       semestreDeIngresso: ['', []],
       situacaoDoCurso: ['', []],
       turmaAtual: ['', []],
+      observacao: ['', []],
     });
 
-    if (this.student) {
-      this.addStudentValuesToForm();
-    }
+    this.store
+      .pipe(
+        untilDestroy(this),
+        select(getSelectedStudent),
+        tap((student) => {
+          this.student = student;
+          if (student && student.id) {
+            this.addStudentValuesToForm();
+          }
+        })
+      )
+      .subscribe();
+
+    this.route.paramMap
+      .pipe(
+        untilDestroy(this),
+        tap((params: ParamMap) => {
+          const studentId = params.get('id');
+          this.store.dispatch(new SelectStudent({ studentId }));
+        })
+      )
+      .subscribe();
 
     this.studentForm.valueChanges
       .pipe(
@@ -124,8 +143,17 @@ export class StudentItemComponent implements OnInit, OnDestroy {
     return of(true);
   }
 
-  addStudentValuesToForm() {}
+  addStudentValuesToForm() {
+    this.studentForm.patchValue({ ...this.student });
+    this.formatAllFields();
+  }
 
+  formatAllFields() {
+    this.formatCEP();
+    this.formatCPF();
+    this.formatCelular();
+    this.formatTelefone();
+  }
   openDataNascimentoDatePicker() {
     this.dataNascimentoDatePicker.open();
   }
@@ -162,6 +190,12 @@ export class StudentItemComponent implements OnInit, OnDestroy {
 
   save() {
     const student = this.treatStudentFormValuesBeforeSave();
+
+    if (this.isEdit) {
+      this.store.dispatch(new UpdateStudentRequested({ student }));
+      this.router.navigate(['Alunos']);
+      return;
+    }
     this.store.dispatch(new CreateStudentRequested({ student }));
 
     this.studentForm.reset();

@@ -43,14 +43,6 @@
     </td>
   </ng-container>
 
-  <!-- CPF Column -->
-  <ng-container matColumnDef="CPF">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>CPF</th>
-    <td mat-cell *matCellDef="let element">
-      {{ element.CPF | cpfFormat: true }}
-    </td>
-  </ng-container>
-
   <!-- Phone Class Column -->
   <ng-container matColumnDef="telefone">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Telefone</th>
@@ -72,6 +64,19 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Turma Atual</th>
     <td mat-cell *matCellDef="let element">
       {{ element.turmaAtual ? element.turmaAtual : 'Aluno(a) inativo(a)' }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="options" class="no-shrink">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button class="edit-icon" (click)="edit(element.id)">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button class="delete-icon" (click)="delete(element)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </td>
   </ng-container>
 

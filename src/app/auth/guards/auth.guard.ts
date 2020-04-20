@@ -3,6 +3,7 @@ import {
   ActivatedRouteSnapshot,
   CanActivate,
   RouterStateSnapshot,
+  Router,
 } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Logout } from '../../store/auth/auth.actions';
@@ -15,7 +16,7 @@ import { getIsLoggedIn } from 'src/app/store/auth/auth.selectors.module';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private store: Store<AuthState>) {}
+  constructor(private store: Store<AuthState>, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -25,6 +26,7 @@ export class AuthGuard implements CanActivate {
       select(getIsLoggedIn),
       tap((loggedIn) => {
         if (!loggedIn) {
+          this.router.navigate(['login']);
           this.store.dispatch(new Logout());
         }
       })

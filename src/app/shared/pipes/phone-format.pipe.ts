@@ -12,6 +12,10 @@ import {
 @Pipe({ name: 'phoneFormat' })
 export class PhoneFormatPipe implements PipeTransform {
   transform(value: string, addDefaultDDD: boolean = false): string {
+    const type = typeof value;
+    if (type === 'number') {
+      value = value.toString();
+    }
     if (!value) {
       return '';
     }

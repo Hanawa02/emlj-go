@@ -7,6 +7,10 @@ import {
 @Pipe({ name: 'cpfFormat' })
 export class CPFFormatPipe implements PipeTransform {
   transform(value: string, addZeros: boolean = false): string {
+    const type = typeof value;
+    if (type === 'number') {
+      value = value.toString();
+    }
     if (!value) {
       return '';
     }

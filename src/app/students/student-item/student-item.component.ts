@@ -191,7 +191,8 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   save() {
     const student = this.treatStudentFormValuesBeforeSave();
 
-    if (this.isEdit) {
+    if (this.student) {
+      student.id = this.student.id;
       this.store.dispatch(new UpdateStudentRequested({ student }));
       this.router.navigate(['Alunos']);
       return;

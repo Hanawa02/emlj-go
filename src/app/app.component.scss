@@ -1,4 +1,7 @@
 :host {
+  $gakkou-red: rgb(194, 8, 37);
+  $gakkou-gray: #858585;
+
   position: absolute;
   top: 0;
   bottom: 0;
@@ -31,6 +34,15 @@
         text-decoration: none;
         margin: 0.5em;
         color: #111;
+
+        &:focus,
+        &.active {
+          border-bottom: 2px solid $gakkou-red;
+        }
+        &:hover {
+          color: $gakkou-red;
+          border-bottom: 2px solid $gakkou-gray;
+        }
       }
 
       .logout-item {

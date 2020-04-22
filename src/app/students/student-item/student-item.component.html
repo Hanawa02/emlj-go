@@ -1,327 +1,347 @@
 <h1>{{ student ? 'Editar ' + student?.nome : 'Novo Aluno' }}</h1>
 <form name="studentForm" class="student-form" [formGroup]="studentForm">
-  <mat-form-field class="form-field-50">
-    <mat-label>Nome</mat-label>
-    <input matInput type="text" formControlName="nome" required />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+  <div class="fields-group">
+    <h2>Dados Pessoais</h2>
+    <mat-form-field class="form-field-50">
+      <mat-label>Nome</mat-label>
+      <input matInput type="text" formControlName="nome" required />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label for>Data Nascimento</mat-label>
-    <input
-      (click)="openDataNascimentoDatePicker()"
-      (focus)="openDataNascimentoDatePicker()"
-      matInput
-      required
-      [matDatepicker]="dataNascimentoDatePicker"
-      formControlName="dataNascimento"
-    />
-    <mat-datepicker-toggle
-      matSuffix
-      [for]="dataNascimentoDatePicker"
-    ></mat-datepicker-toggle>
-    <mat-datepicker #dataNascimentoDatePicker></mat-datepicker>
-    <!-- <mat-error *ngIf="studentFormErrors.email.required"
+    <mat-form-field class="form-field-25">
+      <mat-label for>Data Nascimento</mat-label>
+      <input
+        (click)="openDataNascimentoDatePicker()"
+        (focus)="openDataNascimentoDatePicker()"
+        matInput
+        required
+        [matDatepicker]="dataNascimentoDatePicker"
+        formControlName="dataNascimento"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="dataNascimentoDatePicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #dataNascimentoDatePicker></mat-datepicker>
+      <!-- <mat-error *ngIf="studentFormErrors.email.required"
         >É necessário informar a senha</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label for>CPF</mat-label>
-    <input
-      matInput
-      type="text"
-      formControlName="CPF"
-      (blur)="formatCPF()"
-      [value]="studentForm.value.CPF | cpfFormat"
-    />
-    <!-- <mat-error *ngIf="studentFormErrors.email.required"
+    <mat-form-field class="form-field-25">
+      <mat-label for>CPF</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="CPF"
+        (blur)="formatCPF()"
+        [value]="studentForm.value.CPF | cpfFormat"
+      />
+      <!-- <mat-error *ngIf="studentFormErrors.email.required"
         >É necessário informar a senha</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>RG</mat-label>
-    <input matInput type="text" formControlName="RG" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25">
+      <mat-label>RG</mat-label>
+      <input matInput type="text" formControlName="RG" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Órgão Emissor</mat-label>
-    <input matInput type="text" formControlName="OrgaoEmissor" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25">
+      <mat-label>Órgão Emissor</mat-label>
+      <input matInput type="text" formControlName="OrgaoEmissor" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Nacionalidade</mat-label>
-    <input matInput type="text" formControlName="nacionalidade" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25">
+      <mat-label>Nacionalidade</mat-label>
+      <input matInput type="text" formControlName="nacionalidade" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Naturalidade</mat-label>
-    <input matInput type="text" formControlName="naturalidade" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25">
+      <mat-label>Naturalidade</mat-label>
+      <input matInput type="text" formControlName="naturalidade" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-50">
-    <mat-label>Nome Pai</mat-label>
-    <input matInput type="text" formControlName="pai" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-50">
+      <mat-label>Nome Pai</mat-label>
+      <input matInput type="text" formControlName="pai" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-50">
-    <mat-label>Nome Mãe</mat-label>
-    <input matInput type="text" formControlName="mae" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-50">
+      <mat-label>Nome Mãe</mat-label>
+      <input matInput type="text" formControlName="mae" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-50">
-    <mat-label>Profissão</mat-label>
-    <input matInput type="text" formControlName="profissao" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-100">
+      <mat-label>Profissão</mat-label>
+      <input matInput type="text" formControlName="profissao" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
+  </div>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Descendência</mat-label>
-    <mat-select formControlName="descendencia">
-      <mat-option *ngFor="let item of descendencyEnum" [value]="item">
-        {{ item }}
-      </mat-option>
-    </mat-select>
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+  <div class="fields-group">
+    <h2>Contato</h2>
+    <mat-form-field class="form-field-25">
+      <mat-label>Telefone</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="telefone"
+        (blur)="formatTelefone()"
+        [value]="studentForm.value.telefone | phoneFormat"
+      />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <app-radio-button
-    class="form-field-25"
-    label="Sócio ANBG?"
-    formControlName="socioANBG"
-  >
-  </app-radio-button>
-
-  <mat-form-field class="form-field-50">
-    <mat-label>Endereço</mat-label>
-    <input matInput type="text" formControlName="endereco" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25">
+      <mat-label>Celular</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="celular"
+        (blur)="formatCelular()"
+        [value]="studentForm.value.celular | phoneFormat"
+      />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-50">
-    <mat-label>Setor</mat-label>
-    <input matInput type="text" formControlName="setor" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-50">
+      <mat-label>e-mail</mat-label>
+      <input matInput type="email" formControlName="email" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
+  </div>
 
-  <mat-form-field class="form-field-50">
-    <mat-label>Cidade</mat-label>
-    <input matInput type="text" formControlName="cidade" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+  <div class="fields-group">
+    <h2>Endereço</h2>
+    <mat-form-field class="form-field-50">
+      <mat-label>Endereço</mat-label>
+      <input matInput type="text" formControlName="endereco" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>UF</mat-label>
-    <mat-select formControlName="uf">
-      <mat-option *ngFor="let item of ufEnum" [value]="item">
-        {{ item }}
-      </mat-option>
-    </mat-select>
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-50">
+      <mat-label>Setor</mat-label>
+      <input matInput type="text" formControlName="setor" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>CEP</mat-label>
-    <input
-      matInput
-      type="text"
-      formControlName="cep"
-      (blur)="formatCEP()"
-      [value]="studentForm.value.cep | cepFormat"
-    />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-50">
+      <mat-label>Cidade</mat-label>
+      <input matInput type="text" formControlName="cidade" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Telefone</mat-label>
-    <input
-      matInput
-      type="text"
-      formControlName="telefone"
-      (blur)="formatTelefone()"
-      [value]="studentForm.value.telefone | phoneFormat"
-    />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25">
+      <mat-label>UF</mat-label>
+      <mat-select formControlName="uf">
+        <mat-option *ngFor="let item of ufEnum" [value]="item">
+          {{ item }}
+        </mat-option>
+      </mat-select>
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Celular</mat-label>
-    <input
-      matInput
-      type="text"
-      formControlName="celular"
-      (blur)="formatCelular()"
-      [value]="studentForm.value.celular | phoneFormat"
-    />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25">
+      <mat-label>CEP</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="cep"
+        (blur)="formatCEP()"
+        [value]="studentForm.value.cep | cepFormat"
+      />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
+  </div>
 
-  <mat-form-field class="form-field-50">
-    <mat-label>e-mail</mat-label>
-    <input matInput type="email" formControlName="email" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+  <div class="fields-group">
+    <h2>Dados Escolares</h2>
+
+    <mat-form-field class="form-field-25">
+      <mat-label>Ano de Ingresso</mat-label>
+      <input matInput type="number" formControlName="anoDeIngresso" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <app-radio-button
-    class="form-field-25"
-    label="Já estudou Japonês?"
-    formControlName="jaEstudouJapones"
-  >
-  </app-radio-button>
-
-  <mat-form-field class="form-field-25" *ngIf="studiedJapaneseBefore">
-    <mat-label>Onde Estudou Japones</mat-label>
-    <input matInput type="text" formControlName="ondeEstudouJapones" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25">
+      <mat-label>Semestre de Ingresso</mat-label>
+      <mat-select formControlName="semestreDeIngresso">
+        <mat-option *ngFor="let item of semesterEnum" [value]="item">
+          {{ item }}
+        </mat-option>
+      </mat-select>
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Conversação</mat-label>
-    <mat-select formControlName="conversacao">
-      <mat-option *ngFor="let item of knowledgeLevelsEnum" [value]="item">
-        {{ item }}
-      </mat-option>
-    </mat-select>
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field
+      [ngClass]="activeStudent ? 'form-field-25' : 'form-field-50'"
+    >
+      <mat-label>Situação do Curso</mat-label>
+      <mat-select formControlName="situacaoDoCurso">
+        <mat-option *ngFor="let item of statusEnum" [value]="item">
+          {{ item }}
+        </mat-option>
+      </mat-select>
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Hiragana</mat-label>
-    <mat-select formControlName="hiragana">
-      <mat-option *ngFor="let item of knowledgeLevelsEnum" [value]="item">
-        {{ item }}
-      </mat-option>
-    </mat-select>
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25" *ngIf="activeStudent">
+      <mat-label>Turma Atual</mat-label>
+      <input matInput type="text" formControlName="turmaAtual" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
+  </div>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Katakana</mat-label>
-    <mat-select formControlName="katakana">
-      <mat-option *ngFor="let item of knowledgeLevelsEnum" [value]="item">
-        {{ item }}
-      </mat-option>
-    </mat-select>
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+  <div class="fields-group">
+    <h2>Informações Adicionais</h2>
+
+    <mat-form-field class="form-field-25">
+      <mat-label>Descendência</mat-label>
+      <mat-select formControlName="descendencia">
+        <mat-option *ngFor="let item of descendencyEnum" [value]="item">
+          {{ item }}
+        </mat-option>
+      </mat-select>
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Kanji</mat-label>
-    <mat-select formControlName="kanji">
-      <mat-option *ngFor="let item of knowledgeLevelsEnum" [value]="item">
-        {{ item }}
-      </mat-option>
-    </mat-select>
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <app-radio-button
+      class="form-field-25"
+      label="Sócio ANBG?"
+      formControlName="socioANBG"
+    >
+    </app-radio-button>
+
+    <mat-form-field
+      [ngClass]="studiedJapaneseBefore ? 'form-field-50' : 'form-field-25'"
+    >
+      <mat-label>Como soube da escola?</mat-label>
+      <input matInput type="text" formControlName="comoSoubeDaEscola" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Como soube da escola?</mat-label>
-    <input matInput type="text" formControlName="comoSoubeDaEscola" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <app-radio-button
+      class="form-field-25"
+      label="Já estudou Japonês?"
+      formControlName="jaEstudouJapones"
+    >
+    </app-radio-button>
+
+    <mat-form-field class="form-field-75" *ngIf="studiedJapaneseBefore">
+      <mat-label>Onde Estudou Japonês?</mat-label>
+      <input matInput type="text" formControlName="ondeEstudouJapones" />
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Ano de Ingresso</mat-label>
-    <input matInput type="number" formControlName="anoDeIngresso" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25" *ngIf="studiedJapaneseBefore">
+      <mat-label>Conversação</mat-label>
+      <mat-select formControlName="conversacao">
+        <mat-option *ngFor="let item of knowledgeLevelsEnum" [value]="item">
+          {{ item }}
+        </mat-option>
+      </mat-select>
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Semestre de Ingresso</mat-label>
-    <mat-select formControlName="semestreDeIngresso">
-      <mat-option *ngFor="let item of semesterEnum" [value]="item">
-        {{ item }}
-      </mat-option>
-    </mat-select>
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25" *ngIf="studiedJapaneseBefore">
+      <mat-label>Hiragana</mat-label>
+      <mat-select formControlName="hiragana">
+        <mat-option *ngFor="let item of knowledgeLevelsEnum" [value]="item">
+          {{ item }}
+        </mat-option>
+      </mat-select>
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-25">
-    <mat-label>Situação do Curso</mat-label>
-    <mat-select formControlName="situacaoDoCurso">
-      <mat-option *ngFor="let item of statusEnum" [value]="item">
-        {{ item }}
-      </mat-option>
-    </mat-select>
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25" *ngIf="studiedJapaneseBefore">
+      <mat-label>Katakana</mat-label>
+      <mat-select formControlName="katakana">
+        <mat-option *ngFor="let item of knowledgeLevelsEnum" [value]="item">
+          {{ item }}
+        </mat-option>
+      </mat-select>
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-50" *ngIf="activeStudent">
-    <mat-label>Turma Atual</mat-label>
-    <input matInput type="text" formControlName="turmaAtual" />
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-25" *ngIf="studiedJapaneseBefore">
+      <mat-label>Kanji</mat-label>
+      <mat-select formControlName="kanji">
+        <mat-option *ngFor="let item of knowledgeLevelsEnum" [value]="item">
+          {{ item }}
+        </mat-option>
+      </mat-select>
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
+    </mat-form-field>
 
-  <mat-form-field class="form-field-100">
-    <mat-label>Observacao</mat-label>
-    <textarea matInput formControlName="observacao"></textarea>
-    <!-- <mat-error *ngIf="studentFormErrors.password.required"
+    <mat-form-field class="form-field-100">
+      <mat-label>Observacao</mat-label>
+      <textarea matInput formControlName="observacao"></textarea>
+      <!-- <mat-error *ngIf="studentFormErrors.password.required"
         >É necessário informar o email</mat-error
       > -->
-  </mat-form-field>
-
+    </mat-form-field>
+  </div>
   <!--               
     familiaresMatriculadosNaEscola?: Array<string>;
     JLPTResults?: Array<string>

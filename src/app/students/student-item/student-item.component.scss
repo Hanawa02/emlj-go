@@ -23,6 +23,21 @@
       flex-direction: row;
       justify-content: space-evenly;
     }
+    .fields-group {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1em 0;
+      padding: auto 0.5em;
+
+      h2 {
+        width: 100%;
+        border-bottom: 1px solid $gakkou-red;
+      }
+    }
 
     .form-field-12 {
       width: calc(12.5% - 8px);

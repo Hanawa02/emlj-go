@@ -1,14 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot,
-  CanDeactivate,
-} from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { CanDeactivate } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { getIsLoggedIn } from 'src/app/store/auth/auth.selectors.module';
 import { StudentItemComponent } from '../student-item.component';
 
 @Injectable({

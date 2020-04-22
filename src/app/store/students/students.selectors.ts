@@ -21,3 +21,10 @@ export const getSelectedStudent = createSelector(
     return null;
   }
 );
+
+export const getIsLoading = createSelector(
+  selectStudentsState,
+  (studentsState) => {
+    return studentsState?.isLoading;
+  }
+);

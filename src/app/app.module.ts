@@ -17,6 +17,7 @@ import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
 import { BirthdayPersonModule } from './birthday-person/birthday-person.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CoreStoreModule } from './store/core/core-store-module';
 
 export function apiConfigFactory(): Configuration {
   return new Configuration({
@@ -40,6 +41,7 @@ export function apiConfigFactory(): Configuration {
     AuthModule,
     StudentsStoreModule,
     StudentsModule,
+    CoreStoreModule,
     BirthdayPersonModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

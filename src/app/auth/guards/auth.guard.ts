@@ -10,7 +10,7 @@ import { Logout } from '../../store/auth/auth.actions';
 import { AuthState } from '../../store/auth/auth.reducer';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { getIsLoggedIn } from 'src/app/store/auth/auth.selectors.module';
+import { getIsLoggedIn } from 'src/app/store/auth/auth.selectors';
 
 @Injectable({
   providedIn: 'root',

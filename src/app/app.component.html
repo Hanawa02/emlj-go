@@ -1,3 +1,7 @@
+<mat-progress-bar
+  mode="indeterminate"
+  *ngIf="isLoading$ | async"
+></mat-progress-bar>
 <nav *ngIf="isLoggedIn$ | async" class="menu-container">
   <div class="menu-content">
     <img
@@ -17,6 +21,7 @@
     </a>
   </div>
 </nav>
+
 <div class="container">
   <router-outlet></router-outlet>
 </div>

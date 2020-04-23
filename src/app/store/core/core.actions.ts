@@ -6,7 +6,7 @@ export enum CoreActionTypes {
 
 export class SetIsLoading implements Action {
   readonly type = CoreActionTypes.SetIsLoading;
-  constructor(public payload: { value: boolean }) {}
+  constructor(public payload: boolean) {}
 }
 
 export type CoreActions = SetIsLoading;

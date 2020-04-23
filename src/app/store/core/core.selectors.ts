@@ -12,7 +12,6 @@ export const getIsLoading = createSelector(
   getIsLoadingFromAuth,
   getIsLoadingFromStudents,
   (state, isLoadingFromAuth, isLoadingFromStudents) => {
-    console.log(state?.isLoading);
     const isLoading =
       state?.isLoading || isLoadingFromAuth || isLoadingFromStudents;
     return isLoading;

@@ -13,7 +13,7 @@ export function reducer(state = initialState, action: CoreActions): CoreState {
   switch (action.type) {
     case CoreActionTypes.SetIsLoading:
       return {
-        isLoading: action.payload.value,
+        isLoading: action.payload,
       };
 
     default:

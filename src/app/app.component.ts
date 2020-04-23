@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       .subscribe((e) => {
         const loading = e instanceof NavigationStart;
 
-        this.store.dispatch(new SetIsLoading({ value: loading }));
+        this.store.dispatch(new SetIsLoading(loading));
       });
   }
 

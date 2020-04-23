@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +18,12 @@ import { BirthdayPersonModule } from './birthday-person/birthday-person.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CoreStoreModule } from './store/core/core-store-module';
+import { registerLocaleData } from '@angular/common';
+import localePT from '@angular/common/locales/pt';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getPortuguesePaginatorIntl } from './locale/pt-br.paginator.locale';
+
+registerLocaleData(localePT);
 
 export function apiConfigFactory(): Configuration {
   return new Configuration({
@@ -54,6 +60,11 @@ export function apiConfigFactory(): Configuration {
       useClass: AuthInterceptor,
       multi: true,
     },
+    {
+      provide: LOCALE_ID,
+      useValue: 'pt',
+    },
+    { provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl() },
   ],
   bootstrap: [AppComponent],
 })

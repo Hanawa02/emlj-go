@@ -9,6 +9,8 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { FamiliarMatriculado } from './familiarMatriculado';
+import { JLPT } from './jLPT';
 
 
 export interface Aluno { 
@@ -43,8 +45,8 @@ export interface Aluno {
     anoDeIngresso?: number;
     semestreDeIngresso?: Aluno.SemestreDeIngressoEnum;
     situacaoDoCurso?: Aluno.SituacaoDoCursoEnum;
-    familiaresMatriculadosNaEscola?: Array<string>;
-    JLPTResults?: Array<string>;
+    familiaresMatriculadosNaEscola?: FamiliarMatriculado;
+    JLPTResults?: JLPT;
     turmaAtual?: string;
     observacao?: string;
 }

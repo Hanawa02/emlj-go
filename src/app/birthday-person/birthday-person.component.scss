@@ -1,5 +1,6 @@
 :host {
   $gakkou-red: rgb(194, 8, 37);
+  $gakkou-gray: #858585;
 
   display: flex;
   flex-direction: column;
@@ -7,6 +8,11 @@
     background-color: rgba(2, 2, 2, 0.05);
   }
 
+  .no-data {
+    padding: 1em;
+    text-align: center;
+    border-bottom: 1px solid rgba($gakkou-gray, 0.2);
+  }
   .mat-header-cell,
   .cdk-header-cell {
     // font-weight: bold;

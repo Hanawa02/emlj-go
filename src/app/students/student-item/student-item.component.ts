@@ -2,10 +2,15 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { StudentsState } from 'src/app/store/students/students.reducer';
 import { Store, select } from '@ngrx/store';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { untilDestroy } from '@ngrx-utils/store';
 import { tap } from 'rxjs/operators';
-import { Aluno } from 'src/app/rest-api';
+import { Aluno, FamiliarMatriculado } from 'src/app/rest-api';
 import { getSelectedStudent } from 'src/app/store/students/students.selectors';
 import {
   CreateStudentRequested,
@@ -17,6 +22,9 @@ import { CPFFormatPipe } from 'src/app/shared/pipes/cpf-format.pipe';
 import { CEPFormatPipe } from 'src/app/shared/pipes/cep-format.pipe';
 import { PhoneFormatPipe } from 'src/app/shared/pipes/phone-format.pipe';
 import { Router, ParamMap, ActivatedRoute } from '@angular/router';
+import { ListFormConfiguration } from 'src/app/shared/components/list-form/models/list-form-configuration.model';
+import { ListFormColumn } from 'src/app/shared/components/list-form/models/list.form.column.model';
+import { ParentescoEnum } from 'src/app/shared/constants/parentesco.enum';
 
 @Component({
   selector: 'app-student-item',
@@ -33,11 +41,26 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   statusEnum = Object.values(Aluno.SituacaoDoCursoEnum);
   semesterEnum = Object.values(Aluno.SemestreDeIngressoEnum);
   knowledgeLevelsEnum = Object.values(Aluno.ConversacaoEnum);
+  familyRelation = Object.values(ParentescoEnum);
+
+  addFamilyMemberName = new FormControl('');
+  addFamilyMemberRelation = new FormControl('');
 
   studiedJapaneseBefore: boolean;
   activeStudent: boolean;
 
   isEdit: boolean;
+
+  familyMembersConfiguration = new ListFormConfiguration([
+    new ListFormColumn('nome', 'Nome', true),
+    new ListFormColumn('parentesco', 'Parentesco', true),
+  ]);
+
+  JLPTTestsConfiguration = new ListFormConfiguration([
+    new ListFormColumn('nivel', 'Nível', true),
+    new ListFormColumn('ano', 'Ano', true),
+    new ListFormColumn('pontuacao', 'Pontuação', true),
+  ]);
 
   @ViewChild('dataNascimentoDatePicker')
   dataNascimentoDatePicker: MatDatepicker<Date>;
@@ -86,6 +109,8 @@ export class StudentItemComponent implements OnInit, OnDestroy {
       situacaoDoCurso: ['', []],
       turmaAtual: ['', []],
       observacao: ['', []],
+      familiaresMatriculadosNaEscola: [[], []],
+      JLPTResults: [[], []],
     });
 
     this.store
@@ -211,6 +236,35 @@ export class StudentItemComponent implements OnInit, OnDestroy {
     student.telefone = this.phoneFormatPipe.removeCharacters(student.telefone);
 
     return student;
+  }
+
+  addFamilyMember() {
+    const familyMembers: FamiliarMatriculado[] = this.studentForm.get(
+      'familiaresMatriculadosNaEscola'
+    ).value;
+    const newMember = {
+      nome: this.addFamilyMemberName.value,
+      parentesco: this.addFamilyMemberRelation.value,
+    };
+
+    this.studentForm
+      .get('familiaresMatriculadosNaEscola')
+      .patchValue([...familyMembers, newMember]);
+
+    this.addFamilyMemberName.reset();
+    this.addFamilyMemberRelation.reset();
+  }
+
+  editFamilyMember(familyMember: FamiliarMatriculado) {}
+
+  deleteFamilyMember(familyMember: FamiliarMatriculado) {
+    const familyMembers: FamiliarMatriculado[] = this.studentForm.get(
+      'familiaresMatriculadosNaEscola'
+    ).value;
+
+    this.studentForm
+      .get('familiaresMatriculadosNaEscola')
+      .patchValue([...familyMembers.filter((item) => item !== familyMember)]);
   }
   ngOnDestroy() {
     // do not remove, needed for untilDestroy(this)

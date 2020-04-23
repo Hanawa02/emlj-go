@@ -342,10 +342,52 @@
       > -->
     </mat-form-field>
   </div>
-  <!--               
-    familiaresMatriculadosNaEscola?: Array<string>;
-    JLPTResults?: Array<string>
-       -->
+  <div class="fields-group">
+    <h2>Familiares Matriculados na Escola</h2>
+
+    <app-list-form
+      class="form-field-100"
+      [configuration]="familyMembersConfiguration"
+      formControlName="familiaresMatriculadosNaEscola"
+      (editItem)="editFamilyMember($event)"
+      (deleteItem)="deleteFamilyMember($event)"
+    >
+      <!-- <div class="justify-space-between">
+        <mat-form-field class="form-field-50">
+          <mat-label>Nome</mat-label>
+          <input matInput type="text" [formControl]="addFamilyMemberName" />
+        </mat-form-field>
+
+        <mat-form-field class="form-field-50">
+          <mat-label>Parentesco</mat-label>
+          <mat-select [formControl]="addFamilyMemberRelation">
+            <mat-option *ngFor="let item of familyRelation" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+         
+        </mat-form-field>
+        <button
+          (click)="addFamilyMember()"
+          mat-raised-button="mat-raised-button"
+          color="primary"
+          class="add-button"
+        >
+          Adicionar Familiar
+        </button>
+      </div> -->
+    </app-list-form>
+  </div>
+
+  <div class="fields-group">
+    <h2>Resultados JLPT</h2>
+
+    <app-list-form
+      class="form-field-100"
+      [configuration]="JLPTTestsConfiguration"
+      formControlName="JLPTResults"
+    ></app-list-form>
+  </div>
 </form>
 <button
   (click)="save()"

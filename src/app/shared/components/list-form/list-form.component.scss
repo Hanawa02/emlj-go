@@ -1,11 +1,12 @@
 :host {
   $gakkou-red: rgb(194, 8, 37);
   $gakkou-gray: #858585;
+  color: #000;
 
   display: flex;
   flex-direction: column;
   tr.mat-header-row {
-    background-color: rgba(2, 2, 2, 0.05);
+    font-weight: bold;
   }
 
   .mat-header-cell,
@@ -18,29 +19,10 @@
     text-align: center;
     border-bottom: 1px solid rgba($gakkou-gray, 0.2);
   }
-  .students-table {
-    .mat-sort-header {
+  .list-form-table {
+    .mat-sort-header,
+    .mat-header-cell {
       color: $gakkou-red;
-    }
-
-    .mat-column-nome {
-      word-wrap: break-word;
-    }
-
-    .mat-column-dataNascimento {
-      width: 12%;
-    }
-
-    .mat-column-telefone {
-      width: 14%;
-    }
-
-    .mat-column-celular {
-      width: 14%;
-    }
-
-    .mat-column-turmaAtual {
-      width: 16%;
     }
 
     .mat-column-options {
@@ -84,38 +66,6 @@
 
     &:focus {
       border: 1px dotted $gakkou-red;
-    }
-  }
-
-  .search {
-    width: 100%;
-    display: grid;
-    column-gap: 1em;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-
-    mat-form-field {
-      grid-column: 1/1;
-      border-color: rgba($gakkou-red, 0.8);
-      border-width: 0 0 1px 0;
-    }
-
-    .new-student-button {
-      grid-column: 2/2;
-
-      width: fit-content;
-      background-color: rgba(255, 255, 255, 0.8);
-      border: none;
-      border-radius: 1em;
-      padding: 0.5em 1em;
-      font-weight: bold;
-      box-shadow: 0px 0px 0.28em 0px rgba(0, 0, 0, 0.5);
-      align-self: center;
-      color: $gakkou-red;
-    }
-
-    mat-icon {
-      margin-right: 0.5em;
     }
   }
 }

@@ -25,6 +25,7 @@ import { RadioButtonModule } from './components/radio-button/radio-button.module
 import { CEPFormatPipe } from './pipes/cep-format.pipe';
 import { PhoneFormatPipe } from './pipes/phone-format.pipe';
 import { ConfirmDialogModule } from './components/dialogs/confirm-dialog/confirm-dialog.module';
+import { ListFormModule } from './components/list-form/list-form.module';
 
 const angularMaterialModules = [
   MatIconModule,
@@ -56,6 +57,7 @@ const pipes = [CPFFormatPipe, CEPFormatPipe, PhoneFormatPipe];
     CdkTableModule,
     RadioButtonModule,
     ConfirmDialogModule,
+    ListFormModule,
   ],
   providers: [...pipes],
 })

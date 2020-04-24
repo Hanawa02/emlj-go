@@ -77,6 +77,7 @@ export class StudentsEffects {
             duration: 5000,
             verticalPosition: 'top',
           });
+          this.router.navigate(['editarAluno', data.id.toString()]);
           return new CreateStudentSuccess({
             student: data,
           });
@@ -184,6 +185,7 @@ export class StudentsEffects {
     private studentService: AlunosService,
     private actions$: Actions,
     private snackBar: MatSnackBar,
-    private store: Store<StudentsState>
+    private store: Store<StudentsState>,
+    private router: Router
   ) {}
 }

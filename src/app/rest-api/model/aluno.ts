@@ -45,8 +45,8 @@ export interface Aluno {
     anoDeIngresso?: number;
     semestreDeIngresso?: Aluno.SemestreDeIngressoEnum;
     situacaoDoCurso?: Aluno.SituacaoDoCursoEnum;
-    familiaresMatriculadosNaEscola?: FamiliarMatriculado;
-    JLPTResults?: JLPT;
+    familiaresMatriculadosNaEscola?: Array<FamiliarMatriculado>;
+    JLPTResults?: Array<JLPT>;
     turmaAtual?: string;
     observacao?: string;
 }

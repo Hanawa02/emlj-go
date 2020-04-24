@@ -24,6 +24,7 @@ import { AlunosService } from '../../rest-api';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { StudentsState } from './students.reducer';
+import { SetIsLoading } from '../core/core.actions';
 
 const { Storage } = Plugins;
 
@@ -32,14 +33,17 @@ export class StudentsEffects {
   @Effect()
   loadStudentsRequest$ = this.actions$.pipe(
     ofType<LoadStudentsRequested>(StudentsActionTypes.LoadStudents),
-    switchMap(() =>
-      this.studentService.alunosControllerFindAll().pipe(
+    switchMap(() => {
+      this.store.dispatch(new SetIsLoading(true));
+      return this.studentService.alunosControllerFindAll().pipe(
         map((data) => {
+          this.store.dispatch(new SetIsLoading(false));
           return new LoadStudentsSuccess({
             students: data,
           });
         }),
         catchError((error) => {
+          this.store.dispatch(new SetIsLoading(false));
           this.snackBar.open('Não foi possível carregar os alunos', 'ok', {
             duration: 5000,
             verticalPosition: 'top',
@@ -56,17 +60,19 @@ export class StudentsEffects {
             })
           );
         })
-      )
-    )
+      );
+    })
   );
 
   @Effect()
   createStudentRequest$ = this.actions$.pipe(
     ofType<CreateStudentRequested>(StudentsActionTypes.CreateStudent),
     map((action) => action.payload.student),
-    switchMap((student) =>
-      this.studentService.alunosControllerCreate(student).pipe(
+    switchMap((student) => {
+      this.store.dispatch(new SetIsLoading(true));
+      return this.studentService.alunosControllerCreate(student).pipe(
         map((data) => {
+          this.store.dispatch(new SetIsLoading(false));
           this.snackBar.open('Aluno criado com sucesso', 'ok', {
             duration: 5000,
             verticalPosition: 'top',
@@ -76,6 +82,7 @@ export class StudentsEffects {
           });
         }),
         catchError((error) => {
+          this.store.dispatch(new SetIsLoading(false));
           this.snackBar.open('Não foi possível criar o aluno', 'ok', {
             duration: 5000,
             verticalPosition: 'top',
@@ -91,17 +98,19 @@ export class StudentsEffects {
             })
           );
         })
-      )
-    )
+      );
+    })
   );
 
   @Effect()
   deleteStudentRequest$ = this.actions$.pipe(
     ofType<DeleteStudentRequested>(StudentsActionTypes.DeleteStudent),
     map((action) => action.payload.studentId),
-    switchMap((studentId) =>
-      this.studentService.alunosControllerRemove(studentId).pipe(
+    switchMap((studentId) => {
+      this.store.dispatch(new SetIsLoading(true));
+      return this.studentService.alunosControllerRemove(studentId).pipe(
         map((data) => {
+          this.store.dispatch(new SetIsLoading(false));
           this.snackBar.open('Aluno excluído com sucesso', 'ok', {
             duration: 5000,
             verticalPosition: 'top',
@@ -111,6 +120,7 @@ export class StudentsEffects {
           });
         }),
         catchError((error) => {
+          this.store.dispatch(new SetIsLoading(false));
           this.snackBar.open('Não foi possível excluir o aluno', 'ok', {
             duration: 5000,
             verticalPosition: 'top',
@@ -126,48 +136,54 @@ export class StudentsEffects {
             })
           );
         })
-      )
-    )
+      );
+    })
   );
 
   @Effect()
   updateStudentRequest$ = this.actions$.pipe(
     ofType<UpdateStudentRequested>(StudentsActionTypes.UpdateStudent),
     map((action) => action.payload.student),
-    switchMap((student) =>
-      this.studentService.alunosControllerUpdate(student.id, student).pipe(
-        map((data) => {
-          this.snackBar.open('Aluno atualizado com sucesso', 'ok', {
-            duration: 5000,
-            verticalPosition: 'top',
-          });
-          return new UpdateStudentSuccess({
-            student,
-          });
-        }),
-        catchError((error) => {
-          this.snackBar.open('Não foi possível atualizar o aluno', 'ok', {
-            duration: 5000,
-            verticalPosition: 'top',
-          });
-          console.log(error);
-          // this.snackBar.open(JSON.stringify(error), 'ok', {
-          //   duration: 5000,
-          //   verticalPosition: 'top',
-          // });
-          return of(
-            new UpdateStudentError({
-              error,
-            })
-          );
-        })
-      )
-    )
+    switchMap((student) => {
+      this.store.dispatch(new SetIsLoading(true));
+      return this.studentService
+        .alunosControllerUpdate(student.id, student)
+        .pipe(
+          map((data) => {
+            this.store.dispatch(new SetIsLoading(false));
+            this.snackBar.open('Aluno atualizado com sucesso', 'ok', {
+              duration: 5000,
+              verticalPosition: 'top',
+            });
+            return new UpdateStudentSuccess({
+              student,
+            });
+          }),
+          catchError((error) => {
+            this.store.dispatch(new SetIsLoading(false));
+            this.snackBar.open('Não foi possível atualizar o aluno', 'ok', {
+              duration: 5000,
+              verticalPosition: 'top',
+            });
+            console.log(error);
+            // this.snackBar.open(JSON.stringify(error), 'ok', {
+            //   duration: 5000,
+            //   verticalPosition: 'top',
+            // });
+            return of(
+              new UpdateStudentError({
+                error,
+              })
+            );
+          })
+        );
+    })
   );
 
   constructor(
     private studentService: AlunosService,
     private actions$: Actions,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private store: Store<StudentsState>
   ) {}
 }

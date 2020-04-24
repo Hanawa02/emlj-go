@@ -23,8 +23,6 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<boolean> {
-    this.store.dispatch(new SetIsLoading(true));
-
     let result;
     await this.store
       .pipe(
@@ -39,8 +37,6 @@ export class AuthGuard implements CanActivate {
         })
       )
       .subscribe();
-
-    this.store.dispatch(new SetIsLoading(false));
 
     return result;
   }

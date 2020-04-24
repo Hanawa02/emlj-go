@@ -20,6 +20,7 @@ import { AuthService, DefaultService } from '../../rest-api';
 import { Store } from '@ngrx/store';
 import { AuthState } from './auth.reducer';
 import { LoadStudentsRequested } from '../students/students.actions';
+import { SetIsLoading } from '../core/core.actions';
 
 const { Storage } = Plugins;
 
@@ -29,8 +30,9 @@ export class AuthEffects {
   loginRequested$ = this.actions$.pipe(
     ofType<LoginRequested>(AuthActionTypes.LoginRequested),
     map((action) => action.payload.login),
-    switchMap((login) =>
-      this.authService.authControllerLogin(login).pipe(
+    switchMap((login) => {
+      this.store.dispatch(new SetIsLoading(true));
+      return this.authService.authControllerLogin(login).pipe(
         map((data) => {
           return new LoginSuccess({
             user: data.user,
@@ -49,8 +51,8 @@ export class AuthEffects {
             })
           );
         })
-      )
-    )
+      );
+    })
   );
 
   @Effect({ dispatch: false })

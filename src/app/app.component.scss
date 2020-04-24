@@ -10,6 +10,10 @@
   display: flex;
   flex-direction: column;
 
+  mat-progress-bar {
+    z-index: 3;
+  }
+
   .menu-container {
     min-height: 64px;
     font-size: 1.2em;

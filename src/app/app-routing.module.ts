@@ -6,10 +6,12 @@ import { StudentsComponent } from './students/students.component';
 import { StudentItemComponent } from './students/student-item/student-item.component';
 import { StudentSavedGuard } from './students/student-item/guards/student-saved.guard';
 import { BirthdayPersonComponent } from './birthday-person/birthday-person.component';
+import { LoginGuard } from './auth/guards/login.guard';
 
 const appRoutes: Routes = [
   {
     path: 'login',
+    canActivate: [LoginGuard],
     component: AuthComponent,
   },
   {

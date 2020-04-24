@@ -6,12 +6,10 @@ export const adapter: EntityAdapter<Aluno> = createEntityAdapter<Aluno>();
 
 export interface StudentsState extends EntityState<Aluno> {
   selectedStudentId: string;
-  isLoading: boolean;
 }
 
 export const initialState: StudentsState = adapter.getInitialState({
   selectedStudentId: null,
-  isLoading: false,
 });
 
 export function reducer(
@@ -20,7 +18,7 @@ export function reducer(
 ): StudentsState {
   switch (action.type) {
     case StudentsActionTypes.LoadStudents:
-      return { ...state, isLoading: true };
+      return { ...state };
 
     case StudentsActionTypes.LoadStudentsSuccess:
       return adapter.setAll(action.payload.students, {
@@ -29,10 +27,10 @@ export function reducer(
       });
 
     case StudentsActionTypes.LoadStudentsError:
-      return { ...state, isLoading: false };
+      return { ...state };
 
     case StudentsActionTypes.CreateStudent:
-      return { ...state, isLoading: true };
+      return { ...state };
 
     case StudentsActionTypes.CreateStudentSuccess:
       return adapter.addOne(action.payload.student, {
@@ -41,10 +39,10 @@ export function reducer(
       });
 
     case StudentsActionTypes.CreateStudentError:
-      return { ...state, isLoading: false };
+      return { ...state };
 
     case StudentsActionTypes.DeleteStudent:
-      return { ...state, isLoading: true };
+      return { ...state };
 
     case StudentsActionTypes.DeleteStudentSuccess:
       return adapter.removeOne(action.payload.studentId.toString(), {
@@ -52,10 +50,10 @@ export function reducer(
       });
 
     case StudentsActionTypes.DeleteStudentError:
-      return { ...state, isLoading: false };
+      return { ...state };
 
     case StudentsActionTypes.UpdateStudent:
-      return { ...state, isLoading: true };
+      return { ...state };
 
     case StudentsActionTypes.UpdateStudentSuccess:
       adapter.removeOne(action.payload.student.id.toString(), { ...state });
@@ -65,7 +63,7 @@ export function reducer(
       });
 
     case StudentsActionTypes.UpdateStudentError:
-      return { ...state, isLoading: false };
+      return { ...state };
 
     case StudentsActionTypes.SelectStudent:
       return {

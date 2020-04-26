@@ -21,6 +21,7 @@ import { Store } from '@ngrx/store';
 import { AuthState } from './auth.reducer';
 import { LoadStudentsRequested } from '../students/students.actions';
 import { SetIsLoading } from '../core/core.actions';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const { Storage } = Plugins;
 
@@ -62,6 +63,8 @@ export class AuthEffects {
       const expiresAt = new Date();
       expiresAt.setSeconds(expiresAt.getSeconds() + loginData.expiresIn);
 
+      this.setSessionExpirationTimeout(loginData.expiresIn * 1000);
+
       return forkJoin([
         from(Storage.set({ key: 'token', value: loginData.token })),
         from(Storage.set({ key: 'expiresAt', value: expiresAt.toString() })),
@@ -101,6 +104,18 @@ export class AuthEffects {
     })
   );
 
+  setSessionExpirationTimeout(timeInMiliseconds) {
+    setInterval(() => this.sessionExpired(), timeInMiliseconds);
+  }
+
+  sessionExpired() {
+    this.snackbar.open('Sessão expirada', 'OK', {
+      duration: 4000,
+      verticalPosition: 'top',
+    });
+
+    this.store.dispatch(new Logout());
+  }
   // @Effect()
   // UpdatePasswordRequested = this.actions$.pipe(
   //   ofType<UpdatePasswordRequested>(AuthActionTypes.UpdatePasswordRequested),
@@ -133,6 +148,7 @@ export class AuthEffects {
     private defaultService: DefaultService,
     private actions$: Actions,
     private router: Router,
-    private store: Store<AuthState>
+    private store: Store<AuthState>,
+    private snackbar: MatSnackBar
   ) {}
 }

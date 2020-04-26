@@ -14,6 +14,8 @@ import {
 } from '@angular/router';
 import { SetIsLoading } from './store/core/core.actions';
 import { filter } from 'rxjs/operators';
+import { stringify } from 'querystring';
+import { AuthData } from './shared/models/auth.data';
 const { Storage } = Plugins;
 
 @Component({
@@ -22,6 +24,9 @@ const { Storage } = Plugins;
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  isLoading$ = this.store.pipe(select(getIsLoading));
+  isLoggedIn$ = this.store.pipe(select(getIsLoggedIn));
+
   constructor(private store: Store<AuthState>, public router: Router) {
     this.store.dispatch(new WakeUpServer());
 
@@ -44,14 +49,13 @@ export class AppComponent implements OnInit {
       });
   }
 
-  isLoading$ = this.store.pipe(select(getIsLoading));
-  isLoggedIn$ = this.store.pipe(select(getIsLoggedIn));
   async ngOnInit(): Promise<void> {
-    const token = await Storage.get({ key: 'token' });
-    if (token.value) {
-      this.store.dispatch(new LoginByToken({ token: token.value }));
-    } else {
-      this.store.dispatch(new LoadStudentsRequested());
+    const storedAuthData = await Storage.get({ key: 'authData' });
+
+    const authData: AuthData = JSON.parse(storedAuthData?.value);
+
+    if (authData) {
+      this.store.dispatch(new LoginByToken(authData));
     }
   }
 

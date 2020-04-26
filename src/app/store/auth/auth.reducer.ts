@@ -19,7 +19,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
       };
 
     case AuthActionTypes.LoginSuccess:
-    case AuthActionTypes.LoginByToken:
+    case AuthActionTypes.LoginByTokenSuccess:
       return {
         ...state,
         isLoggedIn: true,

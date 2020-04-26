@@ -1,12 +1,13 @@
 import { Action } from '@ngrx/store';
 import { User } from '../../auth/models/user';
-import { User as LoginViewModel } from '../../rest-api';
+import { User as LoginViewModel, LoginData } from '../../rest-api';
 
 export enum AuthActionTypes {
   LoginRequested = '[Auth] Login',
   LoginSuccess = '[API] Login Success',
   LoginError = '[API] Login Error',
   LoginByToken = '[Auth] Login By Token',
+  LoginByTokenSuccess = '[Auth] Login By Token Success',
   Logout = '[Auth] Logout',
 
   UpdatePasswordRequested = '[Auth] Update Password Requested',
@@ -33,7 +34,12 @@ export class LoginError implements Action {
 
 export class LoginByToken implements Action {
   readonly type = AuthActionTypes.LoginByToken;
-  constructor(public payload: { token: string }) {}
+  constructor(public payload: { token: string; expiresAt: string }) {}
+}
+
+export class LoginByTokenSuccess implements Action {
+  readonly type = AuthActionTypes.LoginByTokenSuccess;
+  constructor() {}
 }
 
 export class Logout implements Action {
@@ -77,6 +83,7 @@ export type AuthActions =
   | LoginSuccess
   | LoginError
   | LoginByToken
+  | LoginByTokenSuccess
   | Logout
   | UpdatePasswordRequested
   | UpdatePasswordSuccess

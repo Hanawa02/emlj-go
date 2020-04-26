@@ -26,8 +26,6 @@ import { Store } from '@ngrx/store';
 import { StudentsState } from './students.reducer';
 import { SetIsLoading } from '../core/core.actions';
 
-const { Storage } = Plugins;
-
 @Injectable()
 export class StudentsEffects {
   @Effect()

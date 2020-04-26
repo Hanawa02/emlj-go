@@ -19,8 +19,8 @@ const { Storage } = Plugins;
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private router: Router, private store: Store<AuthState>) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    return from(Storage.get({ key: 'token' })).pipe(
-      map((token) => token.value),
+    return from(Storage.get({ key: 'authData' })).pipe(
+      map((authData) => JSON.parse(authData?.value)?.token),
       switchMap((token) => {
         const clone = req.clone({
           headers: req.headers.set('Authorization', `Bearer ${token}`),

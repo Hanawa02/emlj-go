@@ -15,6 +15,7 @@ import {
   UpdatePasswordError,
   LoginByToken,
   WakeUpServer,
+  LoginByTokenSuccess,
 } from './auth.actions';
 import { AuthService, DefaultService } from '../../rest-api';
 import { Store } from '@ngrx/store';
@@ -64,10 +65,12 @@ export class AuthEffects {
       expiresAt.setSeconds(expiresAt.getSeconds() + loginData.expiresIn);
 
       this.setSessionExpirationTimeout(loginData.expiresIn * 1000);
-
+      const authData = {
+        token: loginData.token,
+        expiresAt: expiresAt.toString(),
+      };
       return forkJoin([
-        from(Storage.set({ key: 'token', value: loginData.token })),
-        from(Storage.set({ key: 'expiresAt', value: expiresAt.toString() })),
+        from(Storage.set({ key: 'authData', value: JSON.stringify(authData) })),
       ]);
     }),
     tap(() => {
@@ -79,21 +82,46 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   logout$ = this.actions$.pipe(
     ofType<Logout>(AuthActionTypes.Logout),
-    switchMap(() => from(Storage.remove({ key: 'token' }))),
+    map(() => from(Storage.remove({ key: 'authData' }))),
     tap(() => {
       this.router.navigate(['login']);
     })
   );
 
-  @Effect({ dispatch: false })
+  @Effect()
   loginByToken$ = this.actions$.pipe(
     ofType<LoginByToken>(AuthActionTypes.LoginByToken),
-    tap(() => {
-      this.store.dispatch(new LoadStudentsRequested());
+    map((action) => action.payload),
+    map((payload) => {
+      const token = payload.token;
+      const expiresAt = payload.expiresAt;
 
+      if (!token || !expiresAt) {
+        return new Logout();
+      }
+
+      const now = new Date().getTime();
+      const expiresAtTime = new Date(expiresAt).getTime();
+      const expiresIn = expiresAtTime - now;
+
+      if (expiresIn <= 0) {
+        return new Logout();
+      }
+
+      this.setSessionExpirationTimeout(expiresIn);
+
+      return new LoginByTokenSuccess();
+    })
+  );
+
+  @Effect()
+  loginByTokenSuccess$ = this.actions$.pipe(
+    ofType<LoginByTokenSuccess>(AuthActionTypes.LoginByTokenSuccess),
+    map(() => {
       if (this.router.url.includes('login')) {
         this.router.navigate(['alunos']);
       }
+      return new LoadStudentsRequested();
     })
   );
 

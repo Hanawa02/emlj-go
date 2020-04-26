@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, RouterStateSnapshot } from '@angular/router';
 import { Plugins } from '@capacitor/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { from, of } from 'rxjs';
+import { from, of, forkJoin } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import {
   AuthActionTypes,
@@ -35,8 +35,7 @@ export class AuthEffects {
       return this.authService.authControllerLogin(login).pipe(
         map((data) => {
           return new LoginSuccess({
-            user: data.user,
-            token: data.token,
+            loginData: data,
           });
         }),
         catchError((error) => {
@@ -58,10 +57,16 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   loginSuccess$ = this.actions$.pipe(
     ofType<LoginSuccess>(AuthActionTypes.LoginSuccess),
-    map((action) => action.payload),
-    switchMap((payload) =>
-      from(Storage.set({ key: 'token', value: payload.token }))
-    ),
+    map((action) => action.payload.loginData),
+    switchMap((loginData) => {
+      const expiresAt = new Date();
+      expiresAt.setSeconds(expiresAt.getSeconds() + loginData.expiresIn);
+
+      return forkJoin([
+        from(Storage.set({ key: 'token', value: loginData.token })),
+        from(Storage.set({ key: 'expiresAt', value: expiresAt.toString() })),
+      ]);
+    }),
     tap(() => {
       this.store.dispatch(new LoadStudentsRequested());
       this.router.navigate(['alunos']);

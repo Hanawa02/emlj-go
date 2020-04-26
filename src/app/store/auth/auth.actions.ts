@@ -23,7 +23,7 @@ export class LoginRequested implements Action {
 
 export class LoginSuccess implements Action {
   readonly type = AuthActionTypes.LoginSuccess;
-  constructor(public payload: { user: User; token: string }) {}
+  constructor(public payload: { loginData: LoginData }) {}
 }
 
 export class LoginError implements Action {

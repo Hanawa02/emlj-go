@@ -56,9 +56,7 @@ export function reducer(
       return { ...state };
 
     case StudentsActionTypes.UpdateStudentSuccess:
-      adapter.removeOne(action.payload.student.id.toString(), { ...state });
-
-      return adapter.addOne(action.payload.student, {
+      return adapter.upsertOne(action.payload.student, {
         ...state,
       });
 

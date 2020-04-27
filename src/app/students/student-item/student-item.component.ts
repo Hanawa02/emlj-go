@@ -169,6 +169,7 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   }
 
   addStudentValuesToForm() {
+    this.studentForm.reset();
     this.studentForm.patchValue({ ...this.student });
     this.formatAllFields();
   }
@@ -235,6 +236,12 @@ export class StudentItemComponent implements OnInit, OnDestroy {
     student.celular = this.phoneFormatPipe.removeCharacters(student.celular);
     student.telefone = this.phoneFormatPipe.removeCharacters(student.telefone);
 
+    for (const property of Object.keys(student)) {
+      if (!student[property] && student[property] !== 0) {
+        delete student[property];
+      }
+    }
+    console.log(student);
     return student;
   }
 

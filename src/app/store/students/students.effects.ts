@@ -154,8 +154,9 @@ export class StudentsEffects {
               duration: 5000,
               verticalPosition: 'top',
             });
+            console.log(data);
             return new UpdateStudentSuccess({
-              student,
+              student: data,
             });
           }),
           catchError((error) => {

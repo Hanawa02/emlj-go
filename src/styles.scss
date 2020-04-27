@@ -95,6 +95,8 @@ $emlj-go-theme: mat-light-theme(
 // that you are using.
 @include angular-material-theme($emlj-go-theme);
 
+$gakkou-red: #c20825;
+$gakkou-gray: #858585;
 /* You can add global styles to this file, and also import other style files */
 .w-100-p {
   width: 100%;
@@ -117,16 +119,30 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px rgba(#858585, 0.5);
+  box-shadow: inset 0 0 5px rgba($gakkou-gray, 0.5);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #c20825;
+  background: $gakkou-red;
   border-radius: 1em;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(#c20825, 0.75);
+  background: rgba($gakkou-red, 0.75);
+}
+
+.mat-cell,
+.mat-footer-cell {
+  color: inherit;
+}
+
+tr.mat-row,
+tr.mat-footer-row {
+  &:hover,
+  &:focus {
+    color: $gakkou-red;
+    background-color: rgba($gakkou-red, 0.01);
+  }
 }

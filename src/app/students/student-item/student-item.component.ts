@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { untilDestroy } from '@ngrx-utils/store';
 import { tap } from 'rxjs/operators';
-import { Aluno, FamiliarMatriculado } from 'src/app/rest-api';
+import { Aluno, FamiliarMatriculado, JLPT } from 'src/app/rest-api';
 import { getSelectedStudent } from 'src/app/store/students/students.selectors';
 import {
   CreateStudentRequested,
@@ -42,9 +42,14 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   semesterEnum = Object.values(Aluno.SemestreDeIngressoEnum);
   knowledgeLevelsEnum = Object.values(Aluno.ConversacaoEnum);
   familyRelation = Object.values(ParentescoEnum);
+  JLPTLevels = Object.values(JLPT.NivelEnum);
 
   addFamilyMemberName = new FormControl('');
   addFamilyMemberRelation = new FormControl('');
+
+  addJLPTResultLevel = new FormControl('');
+  addJLPTResultYear = new FormControl('');
+  addJLPTResultScore = new FormControl('');
 
   studiedJapaneseBefore: boolean;
   activeStudent: boolean;
@@ -170,6 +175,9 @@ export class StudentItemComponent implements OnInit, OnDestroy {
 
   addStudentValuesToForm() {
     this.studentForm.reset();
+    this.addFamilyMemberName.reset();
+    this.addFamilyMemberRelation.reset();
+
     this.studentForm.patchValue({ ...this.student });
     this.formatAllFields();
   }
@@ -262,7 +270,12 @@ export class StudentItemComponent implements OnInit, OnDestroy {
     this.addFamilyMemberRelation.reset();
   }
 
-  editFamilyMember(familyMember: FamiliarMatriculado) {}
+  editFamilyMember(familyMember: FamiliarMatriculado) {
+    this.addFamilyMemberName.patchValue(familyMember.nome);
+    this.addFamilyMemberRelation.patchValue(familyMember.parentesco);
+
+    this.deleteFamilyMember(familyMember);
+  }
 
   deleteFamilyMember(familyMember: FamiliarMatriculado) {
     const familyMembers: FamiliarMatriculado[] = this.studentForm.get(
@@ -273,6 +286,38 @@ export class StudentItemComponent implements OnInit, OnDestroy {
       .get('familiaresMatriculadosNaEscola')
       .patchValue([...familyMembers.filter((item) => item !== familyMember)]);
   }
+
+  addJLPTResult() {
+    const JLPTResults: JLPT[] = this.studentForm.get('JLPTResults').value;
+    const newResult = {
+      nivel: this.addJLPTResultLevel.value,
+      ano: this.addJLPTResultYear.value,
+      pontuacao: this.addJLPTResultScore.value,
+    };
+
+    this.studentForm.get('JLPTResults').patchValue([...JLPTResults, newResult]);
+
+    this.addJLPTResultLevel.reset();
+    this.addJLPTResultYear.reset();
+    this.addJLPTResultScore.reset();
+  }
+
+  editJLPTResult(JLPTResult: JLPT) {
+    this.addJLPTResultLevel.patchValue(JLPTResult.nivel);
+    this.addJLPTResultYear.patchValue(JLPTResult.ano);
+    this.addJLPTResultScore.patchValue(JLPTResult.pontuacao);
+
+    this.deleteJLPTResult(JLPTResult);
+  }
+
+  deleteJLPTResult(JLPTResult: JLPT) {
+    const JLPTResults: JLPT[] = this.studentForm.get('JLPTResults').value;
+
+    this.studentForm
+      .get('JLPTResults')
+      .patchValue([...JLPTResults.filter((item) => item !== JLPTResult)]);
+  }
+
   ngOnDestroy() {
     // do not remove, needed for untilDestroy(this)
   }

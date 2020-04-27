@@ -385,7 +385,38 @@
       class="form-field-100"
       [configuration]="JLPTTestsConfiguration"
       formControlName="JLPTResults"
-    ></app-list-form>
+      (editItem)="editJLPTResult($event)"
+      (deleteItem)="deleteJLPTResult($event)"
+      ><div class="justify-space-between">
+        <mat-form-field class="form-field-50">
+          <mat-label>Ano</mat-label>
+          <input matInput type="number" [formControl]="addJLPTResultYear" />
+        </mat-form-field>
+
+        <mat-form-field class="form-field-25">
+          <mat-label>Nível</mat-label>
+          <mat-select [formControl]="addJLPTResultLevel">
+            <mat-option *ngFor="let item of JLPTLevels" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-field-50">
+          <mat-label>Pontuação</mat-label>
+          <input matInput type="number" [formControl]="addJLPTResultScore" />
+        </mat-form-field>
+
+        <button
+          (click)="addJLPTResult()"
+          mat-raised-button="mat-raised-button"
+          color="primary"
+          class="add-button"
+        >
+          Adicionar Resultado JLPT
+        </button>
+      </div></app-list-form
+    >
   </div>
 </form>
 <button

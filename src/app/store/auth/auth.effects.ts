@@ -47,15 +47,24 @@ export class AuthEffects {
             loginData: data,
           });
         }),
-        catchError((error) => {
-          // this.snackBar.open('Não foi possível realizar o login', 'ok', {
-          //   duration: 5000,
-          //   verticalPosition: 'top',
-          // });
+        catchError((httpError) => {
+          this.store.dispatch(new SetIsLoading(false));
+          const message = httpError?.error?.message
+            ? httpError.error.message
+            : '';
+
+          this.snackbar.open(
+            'Não foi possível realizar o login! ' + message,
+            'ok',
+            {
+              duration: 5000,
+              verticalPosition: 'top',
+            }
+          );
 
           return of(
             new LoginError({
-              error,
+              error: httpError.error,
             })
           );
         })
@@ -75,6 +84,7 @@ export class AuthEffects {
       const authData = {
         token: loginData.token,
         expiresAt: expiresAt.toString(),
+        email: loginData.user.email,
       };
       return forkJoin([
         from(Storage.set({ key: 'authData', value: JSON.stringify(authData) })),
@@ -117,7 +127,7 @@ export class AuthEffects {
 
       this.setSessionExpirationTimeout(expiresIn);
 
-      return new LoginByTokenSuccess();
+      return new LoginByTokenSuccess({ email: payload.email });
     })
   );
 
@@ -140,6 +150,46 @@ export class AuthEffects {
     })
   );
 
+  @Effect()
+  UpdatePasswordRequested = this.actions$.pipe(
+    ofType<UpdatePasswordRequested>(AuthActionTypes.UpdatePasswordRequested),
+    map((action) => action.payload),
+    mergeMap((payload) => {
+      this.store.dispatch(new SetIsLoading(true));
+      return this.authService.authControllerUpdatePassword(payload).pipe(
+        map((response) => {
+          this.store.dispatch(new SetIsLoading(false));
+          this.snackbar.open('Senha atualizada com sucesso!', 'ok', {
+            duration: 5000,
+            verticalPosition: 'top',
+          });
+          return new UpdatePasswordSuccess();
+        }),
+        catchError((httpError) => {
+          this.store.dispatch(new SetIsLoading(false));
+          const message = httpError?.error?.message
+            ? httpError.error.message
+            : '';
+
+          this.snackbar.open(
+            'Não foi possível atualizar a senha! ' + message,
+            'ok',
+            {
+              duration: 5000,
+              verticalPosition: 'top',
+            }
+          );
+
+          return of(
+            new LoginError({
+              error: httpError.error,
+            })
+          );
+        })
+      );
+    })
+  );
+
   setSessionExpirationTimeout(timeInMiliseconds) {
     setInterval(() => this.sessionExpired(), timeInMiliseconds);
   }
@@ -152,33 +202,6 @@ export class AuthEffects {
 
     this.store.dispatch(new Logout());
   }
-  // @Effect()
-  // UpdatePasswordRequested = this.actions$.pipe(
-  //   ofType<UpdatePasswordRequested>(AuthActionTypes.UpdatePasswordRequested),
-  //   map((action) => action.payload),
-  //   mergeMap((payload) => {
-  //     return this.accountService.accountUpdatepasswordPost(payload).pipe(
-  //       map((response) => new UpdatePasswordSuccess()),
-  //       catchError((error) => {
-  //         this.snackBar.open(
-  //           'não foi possível atualizar a senha',
-  //           'OK',
-  //           {
-  //             duration: 5000,
-  //             verticalPosition: 'top',
-  //           }
-  //         );
-
-  //         return of(
-  //           new UpdatePasswordError({
-  //             error,
-  //           })
-  //         );
-  //       })
-  //     );
-  //   })
-  // );
-
   constructor(
     private authService: AuthService,
     private defaultService: DefaultService,

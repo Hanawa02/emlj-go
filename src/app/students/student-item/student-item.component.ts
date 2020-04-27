@@ -249,7 +249,6 @@ export class StudentItemComponent implements OnInit, OnDestroy {
         delete student[property];
       }
     }
-    console.log(student);
     return student;
   }
 

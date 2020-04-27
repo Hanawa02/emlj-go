@@ -1,16 +1,10 @@
 <h1>{{ data.title }}</h1>
 <p [innerHtml]="data.question"></p>
 <div class="button-container">
-  <button mat-raised-button (click)="closeDialog(true)">
+  <button mat-raised-button color="primary" (click)="closeDialog(true)">
     {{ data.textYes }}
   </button>
-  <button
-    mat-raised-button
-    color="primary"
-    focus
-    (click)="closeDialog(false)"
-    cdkFocusInitial
-  >
+  <button mat-raised-button focus (click)="closeDialog(false)" cdkFocusInitial>
     {{ data.textNo }}
   </button>
 </div>

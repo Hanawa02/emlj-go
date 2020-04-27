@@ -1,5 +1,4 @@
 import { CoreActions, CoreActionTypes } from './core.actions';
-import { User } from 'src/app/auth/models/user';
 
 export interface CoreState {
   isLoading: boolean;

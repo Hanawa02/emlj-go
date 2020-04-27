@@ -10,9 +10,9 @@ export const getIsLoggedIn = createSelector(
   (state) => state.isLoggedIn
 );
 
-export const getCurrentUser = createSelector(selectAuthState, (authState) => {
-  const currentUser = authState?.currentUser;
-  return {
-    ...currentUser,
-  };
-});
+export const getCurrentUserEmail = createSelector(
+  selectAuthState,
+  (authState) => {
+    return authState?.currentUserEmail;
+  }
+);

@@ -26,6 +26,7 @@ import { CEPFormatPipe } from './pipes/cep-format.pipe';
 import { PhoneFormatPipe } from './pipes/phone-format.pipe';
 import { ConfirmDialogModule } from './components/dialogs/confirm-dialog/confirm-dialog.module';
 import { ListFormModule } from './components/list-form/list-form.module';
+import { ChangePasswordDialogModule } from './components/dialogs/change-password-dialog/change-password-dialog.module';
 
 const angularMaterialModules = [
   MatIconModule,
@@ -58,6 +59,7 @@ const pipes = [CPFFormatPipe, CEPFormatPipe, PhoneFormatPipe];
     RadioButtonModule,
     ConfirmDialogModule,
     ListFormModule,
+    ChangePasswordDialogModule,
   ],
   providers: [...pipes],
 })

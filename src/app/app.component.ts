@@ -16,6 +16,9 @@ import { SetIsLoading } from './store/core/core.actions';
 import { filter } from 'rxjs/operators';
 import { stringify } from 'querystring';
 import { AuthData } from './shared/models/auth.data';
+import { ChangePasswordDialogModule } from './shared/components/dialogs/change-password-dialog/change-password-dialog.module';
+import { ChangePasswordDialogComponent } from './shared/components/dialogs/change-password-dialog/change-password-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 const { Storage } = Plugins;
 
 @Component({
@@ -27,7 +30,11 @@ export class AppComponent implements OnInit {
   isLoading$ = this.store.pipe(select(getIsLoading));
   isLoggedIn$ = this.store.pipe(select(getIsLoggedIn));
 
-  constructor(private store: Store<AuthState>, public router: Router) {
+  constructor(
+    private store: Store<AuthState>,
+    public router: Router,
+    public dialog: MatDialog
+  ) {
     this.store.dispatch(new WakeUpServer());
 
     this.router.events
@@ -61,5 +68,9 @@ export class AppComponent implements OnInit {
 
   Logout(): void {
     this.store.dispatch(new Logout());
+  }
+
+  openChangePasswordModal() {
+    this.dialog.open(ChangePasswordDialogComponent);
   }
 }

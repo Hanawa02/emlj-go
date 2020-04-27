@@ -3,7 +3,14 @@ import { Router, RouterStateSnapshot } from '@angular/router';
 import { Plugins } from '@capacitor/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { from, of, forkJoin } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import {
+  catchError,
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+  take,
+} from 'rxjs/operators';
 import {
   AuthActionTypes,
   LoginError,
@@ -125,10 +132,11 @@ export class AuthEffects {
     })
   );
 
+  @Effect({ dispatch: false })
   wakeUpServer$ = this.actions$.pipe(
     ofType<WakeUpServer>(AuthActionTypes.WakeUpServer),
     tap(() => {
-      this.defaultService.appControllerWakeUpServer();
+      this.defaultService.appControllerWakeUpServer().pipe(take(1)).subscribe();
     })
   );
 

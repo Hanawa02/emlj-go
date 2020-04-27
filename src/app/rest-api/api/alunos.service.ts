@@ -90,9 +90,9 @@ export class AlunosService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public alunosControllerCreate(aluno: Aluno, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public alunosControllerCreate(aluno: Aluno, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public alunosControllerCreate(aluno: Aluno, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public alunosControllerCreate(aluno: Aluno, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Aluno>;
+    public alunosControllerCreate(aluno: Aluno, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Aluno>>;
+    public alunosControllerCreate(aluno: Aluno, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Aluno>>;
     public alunosControllerCreate(aluno: Aluno, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (aluno === null || aluno === undefined) {
             throw new Error('Required parameter aluno was null or undefined when calling alunosControllerCreate.');
@@ -127,7 +127,7 @@ export class AlunosService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<any>(`${this.configuration.basePath}/alunos`,
+        return this.httpClient.post<Aluno>(`${this.configuration.basePath}/alunos`,
             aluno,
             {
                 responseType: <any>responseType,
@@ -143,9 +143,9 @@ export class AlunosService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public alunosControllerFindAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public alunosControllerFindAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public alunosControllerFindAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public alunosControllerFindAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Aluno>>;
+    public alunosControllerFindAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Aluno>>>;
+    public alunosControllerFindAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Aluno>>>;
     public alunosControllerFindAll(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -168,7 +168,7 @@ export class AlunosService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/alunos`,
+        return this.httpClient.get<Array<Aluno>>(`${this.configuration.basePath}/alunos`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -184,9 +184,9 @@ export class AlunosService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public alunosControllerFindOne(id: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public alunosControllerFindOne(id: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public alunosControllerFindOne(id: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public alunosControllerFindOne(id: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Aluno>;
+    public alunosControllerFindOne(id: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Aluno>>;
+    public alunosControllerFindOne(id: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Aluno>>;
     public alunosControllerFindOne(id: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling alunosControllerFindOne.');
@@ -212,7 +212,7 @@ export class AlunosService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<any>(`${this.configuration.basePath}/alunos/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<Aluno>(`${this.configuration.basePath}/alunos/${encodeURIComponent(String(id))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -272,9 +272,9 @@ export class AlunosService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public alunosControllerUpdate(id: object, aluno: Aluno, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<any>;
-    public alunosControllerUpdate(id: object, aluno: Aluno, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<any>>;
-    public alunosControllerUpdate(id: object, aluno: Aluno, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<any>>;
+    public alunosControllerUpdate(id: object, aluno: Aluno, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Aluno>;
+    public alunosControllerUpdate(id: object, aluno: Aluno, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Aluno>>;
+    public alunosControllerUpdate(id: object, aluno: Aluno, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Aluno>>;
     public alunosControllerUpdate(id: object, aluno: Aluno, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling alunosControllerUpdate.');
@@ -312,7 +312,7 @@ export class AlunosService {
             responseType = 'text';
         }
 
-        return this.httpClient.patch<any>(`${this.configuration.basePath}/alunos/${encodeURIComponent(String(id))}`,
+        return this.httpClient.patch<Aluno>(`${this.configuration.basePath}/alunos/${encodeURIComponent(String(id))}`,
             aluno,
             {
                 responseType: <any>responseType,

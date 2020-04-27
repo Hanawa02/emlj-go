@@ -22,13 +22,14 @@ import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getPortuguesePaginatorIntl } from './locale/pt-br.paginator.locale';
+import { environment } from 'src/environments/environment';
 
 registerLocaleData(localePT);
 
 export function apiConfigFactory(): Configuration {
   return new Configuration({
     apiKeys: {},
-    basePath: 'https://gakkou-service.herokuapp.com',
+    basePath: environment.serverBasePath,
   });
 }
 

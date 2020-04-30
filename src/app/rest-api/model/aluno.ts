@@ -10,7 +10,9 @@
  * Do not edit the class manually.
  */
 import { FamiliarMatriculado } from './familiarMatriculado';
+import { Emprestimo } from './emprestimo';
 import { JLPT } from './jLPT';
+import { Observacao } from './observacao';
 
 
 export interface Aluno { 
@@ -48,7 +50,8 @@ export interface Aluno {
     familiaresMatriculadosNaEscola?: Array<FamiliarMatriculado>;
     JLPTResults?: Array<JLPT>;
     turmaAtual?: string;
-    observacao?: string;
+    observacoes?: Array<Observacao>;
+    emprestimos?: Array<Emprestimo>;
 }
 export namespace Aluno {
     export type DescendenciaEnum = 'Nenhuma' | 'Issei' | 'Nisei' | 'Sansei' | 'Yonsei';

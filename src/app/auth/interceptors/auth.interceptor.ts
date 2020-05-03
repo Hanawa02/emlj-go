@@ -20,11 +20,16 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private router: Router, private store: Store<AuthState>) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     return from(Storage.get({ key: 'authData' })).pipe(
-      map((authData) => JSON.parse(authData?.value)?.token),
-      switchMap((token) => {
+      map((authData) => JSON.parse(authData?.value)),
+      switchMap((authData) => {
+        const headers = req.headers
+          .set('Authorization', `Bearer ${authData?.token}`)
+          .set('username', authData?.username ? authData?.username : '');
+
         const clone = req.clone({
-          headers: req.headers.set('Authorization', `Bearer ${token}`),
+          headers,
         });
+
         return next.handle(clone).pipe(
           catchError((err) => {
             if (err instanceof HttpErrorResponse) {

@@ -85,6 +85,7 @@ export class AuthEffects {
         token: loginData.token,
         expiresAt: expiresAt.toString(),
         email: loginData.user.email,
+        username: loginData.user.username,
       };
       return forkJoin([
         from(Storage.set({ key: 'authData', value: JSON.stringify(authData) })),

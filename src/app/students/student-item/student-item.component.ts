@@ -113,7 +113,7 @@ export class StudentItemComponent implements OnInit, OnDestroy {
       semestreDeIngresso: ['', []],
       situacaoDoCurso: ['', []],
       turmaAtual: ['', []],
-      observacao: ['', []],
+      observacoes: ['', []],
       familiaresMatriculadosNaEscola: [[], []],
       JLPTResults: [[], []],
     });

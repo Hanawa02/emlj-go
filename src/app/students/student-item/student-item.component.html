@@ -410,6 +410,44 @@
       </div></app-list-form
     >
   </div>
+
+  <div class="fields-group">
+    <h2>Empréstimos</h2>
+
+    <app-list-form
+      class="form-field-100"
+      [configuration]="RentsConfiguration"
+      formControlName="emprestimos"
+    ></app-list-form>
+  </div>
+
+  <div class="fields-group">
+    <h2>Observações</h2>
+
+    <app-list-form
+      class="form-field-100"
+      [configuration]="CommentsConfiguration"
+      formControlName="observacoes"
+      (editItem)="editComment($event)"
+      (deleteItem)="deleteComment($event)"
+    >
+      <div class="justify-space-between">
+        <mat-form-field class="form-field-100">
+          <mat-label>Observação</mat-label>
+          <input matInput type="text" [formControl]="addCommentText" />
+        </mat-form-field>
+
+        <button
+          (click)="addComment()"
+          mat-raised-button="mat-raised-button"
+          color="primary"
+          class="add-button"
+        >
+          Adicionar Observação
+        </button>
+      </div>
+    </app-list-form>
+  </div>
 </form>
 <button
   (click)="save()"

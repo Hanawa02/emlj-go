@@ -10,7 +10,13 @@ import {
 } from '@angular/forms';
 import { untilDestroy } from '@ngrx-utils/store';
 import { tap } from 'rxjs/operators';
-import { Aluno, FamiliarMatriculado, JLPT } from 'src/app/rest-api';
+import {
+  Aluno,
+  FamiliarMatriculado,
+  JLPT,
+  Observacao,
+  User,
+} from 'src/app/rest-api';
 import { getSelectedStudent } from 'src/app/store/students/students.selectors';
 import {
   CreateStudentRequested,
@@ -25,6 +31,8 @@ import { Router, ParamMap, ActivatedRoute } from '@angular/router';
 import { ListFormConfiguration } from 'src/app/shared/components/list-form/models/list-form-configuration.model';
 import { ListFormColumn } from 'src/app/shared/components/list-form/models/list.form.column.model';
 import { ParentescoEnum } from 'src/app/shared/constants/parentesco.enum';
+import { getCurrentUser } from 'src/app/store/auth/auth.selectors';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-student-item',
@@ -33,6 +41,8 @@ import { ParentescoEnum } from 'src/app/shared/constants/parentesco.enum';
 })
 export class StudentItemComponent implements OnInit, OnDestroy {
   student: Aluno;
+
+  currentUser: User;
 
   studentForm: FormGroup;
   formErrors: any;
@@ -51,6 +61,13 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   addJLPTResultYear = new FormControl('');
   addJLPTResultScore = new FormControl('');
 
+  addCommentText = new FormControl('');
+
+  addRentLeaveDate = new FormControl('');
+  addRentReturnDate = new FormControl('');
+  addRentItem = new FormControl('');
+  addRentComment = new FormControl('');
+
   studiedJapaneseBefore: boolean;
   activeStudent: boolean;
 
@@ -67,6 +84,37 @@ export class StudentItemComponent implements OnInit, OnDestroy {
     new ListFormColumn('pontuacao', 'Pontuação', true),
   ]);
 
+  CommentsConfiguration = new ListFormConfiguration([
+    new ListFormColumn('data', 'Data', true, '', true, this.formatData),
+    new ListFormColumn('autor', 'Autor', true),
+    new ListFormColumn('observacao', 'Observação', true),
+  ]);
+
+  RentsConfiguration = new ListFormConfiguration(
+    [
+      new ListFormColumn(
+        'dataEmprestimo',
+        'Data Empréstimo',
+        true,
+        '',
+        true,
+        this.formatData
+      ),
+      new ListFormColumn(
+        'dataRetorno',
+        'Data Retorno',
+        true,
+        '',
+        true,
+        this.formatData
+      ),
+      new ListFormColumn('item', 'Item', true),
+      new ListFormColumn('observacao', 'Observação', true),
+    ],
+    false,
+    false
+  );
+
   @ViewChild('dataNascimentoDatePicker')
   dataNascimentoDatePicker: MatDatepicker<Date>;
 
@@ -77,7 +125,8 @@ export class StudentItemComponent implements OnInit, OnDestroy {
     private cepFormaterPipe: CEPFormatPipe,
     private phoneFormatPipe: PhoneFormatPipe,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackbar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -113,10 +162,21 @@ export class StudentItemComponent implements OnInit, OnDestroy {
       semestreDeIngresso: ['', []],
       situacaoDoCurso: ['', []],
       turmaAtual: ['', []],
-      observacoes: [[], []],
       familiaresMatriculadosNaEscola: [[], []],
       JLPTResults: [[], []],
+      emprestimos: [[], []],
+      observacoes: [[], []],
     });
+
+    this.store
+      .pipe(
+        untilDestroy(this),
+        select(getCurrentUser),
+        tap((user) => {
+          this.currentUser = user;
+        })
+      )
+      .subscribe();
 
     this.store
       .pipe(
@@ -149,6 +209,14 @@ export class StudentItemComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
+  formatData(data): string {
+    if (!data) {
+      return '';
+    }
+
+    return new Date(data).toLocaleString('pt-br');
+  }
+
   onFormValuesChanged(): void {
     this.studiedJapaneseBefore = this.studentForm.value.jaEstudouJapones;
     this.activeStudent =
@@ -175,8 +243,8 @@ export class StudentItemComponent implements OnInit, OnDestroy {
 
   addStudentValuesToForm() {
     this.studentForm.reset();
-    this.addFamilyMemberName.reset();
-    this.addFamilyMemberRelation.reset();
+    this.resetFamilyMemberFields();
+    this.resetJLPTResultFields();
 
     this.studentForm.patchValue({ ...this.student });
     this.formatAllFields();
@@ -251,6 +319,10 @@ export class StudentItemComponent implements OnInit, OnDestroy {
     }
     return student;
   }
+  resetFamilyMemberFields(): void {
+    this.addFamilyMemberName.reset();
+    this.addFamilyMemberRelation.reset();
+  }
 
   addFamilyMember() {
     const familyMembers: FamiliarMatriculado[] = this.studentForm.get(
@@ -265,8 +337,7 @@ export class StudentItemComponent implements OnInit, OnDestroy {
       .get('familiaresMatriculadosNaEscola')
       .patchValue([...familyMembers, newMember]);
 
-    this.addFamilyMemberName.reset();
-    this.addFamilyMemberRelation.reset();
+    this.resetFamilyMemberFields();
   }
 
   editFamilyMember(familyMember: FamiliarMatriculado) {
@@ -286,6 +357,12 @@ export class StudentItemComponent implements OnInit, OnDestroy {
       .patchValue([...familyMembers.filter((item) => item !== familyMember)]);
   }
 
+  resetJLPTResultFields(): void {
+    this.addJLPTResultLevel.reset();
+    this.addJLPTResultYear.reset();
+    this.addJLPTResultScore.reset();
+  }
+
   addJLPTResult() {
     const JLPTResults: JLPT[] = this.studentForm.get('JLPTResults').value;
     const newResult = {
@@ -295,10 +372,7 @@ export class StudentItemComponent implements OnInit, OnDestroy {
     };
 
     this.studentForm.get('JLPTResults').patchValue([...JLPTResults, newResult]);
-
-    this.addJLPTResultLevel.reset();
-    this.addJLPTResultYear.reset();
-    this.addJLPTResultScore.reset();
+    this.resetJLPTResultFields();
   }
 
   editJLPTResult(JLPTResult: JLPT) {
@@ -316,6 +390,59 @@ export class StudentItemComponent implements OnInit, OnDestroy {
       .get('JLPTResults')
       .patchValue([...JLPTResults.filter((item) => item !== JLPTResult)]);
   }
+
+  resetCommentFields(): void {
+    this.addCommentText.reset();
+  }
+
+  addComment() {
+    const comments: Observacao[] = this.studentForm.get('observacoes').value;
+    const newComment = {
+      autor: this.currentUser?.username,
+      data: new Date(),
+      observacao: this.addCommentText.value,
+    };
+
+    this.studentForm.get('observacoes').patchValue([...comments, newComment]);
+    this.resetCommentFields();
+  }
+  validateCommentUser(comment: Observacao): boolean {
+    if (comment.autor !== this.currentUser.username) {
+      this.snackbar.open(
+        'Apenas o autor da observação pode editar ou excluír a observação.',
+        'ok',
+        {
+          duration: 6000,
+          verticalPosition: 'top',
+        }
+      );
+      return false;
+    }
+
+    return true;
+  }
+
+  editComment(comment: Observacao) {
+    if (!this.validateCommentUser(comment)) {
+      return;
+    }
+    this.addCommentText.patchValue(comment.observacao);
+
+    this.deleteComment(comment);
+  }
+
+  deleteComment(comment: Observacao) {
+    if (!this.validateCommentUser(comment)) {
+      return;
+    }
+    const comments: Observacao[] = this.studentForm.get('observacoes').value;
+
+    this.studentForm
+      .get('observacoes')
+      .patchValue([...comments.filter((item) => item !== comment)]);
+  }
+
+  rentItemClick(): void {}
 
   ngOnDestroy() {
     // do not remove, needed for untilDestroy(this)

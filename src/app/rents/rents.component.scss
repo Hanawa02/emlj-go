@@ -1,0 +1,147 @@
+:host {
+  $gakkou-red: rgb(194, 8, 37);
+  $gakkou-gray: #858585;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+
+  .fields-group {
+    h1 {
+      color: $gakkou-red;
+    }
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1em 0;
+    padding: auto 0.5em;
+
+    h2 {
+      width: 100%;
+      border-bottom: 1px solid $gakkou-red;
+    }
+  }
+
+  .rent-form {
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    .justify-space-between {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      mat-form-field {
+        margin-right: 8px;
+      }
+
+      .add-button {
+        height: fit-content;
+        align-self: center;
+        flex-shrink: 0;
+      }
+    }
+
+    .form-field-12 {
+      width: calc(12.5% - 8px);
+    }
+
+    .form-field-25 {
+      width: calc(25% - 6px);
+    }
+
+    .form-field-50 {
+      width: calc(50% - 4px);
+    }
+
+    .form-field-75 {
+      width: calc(75% - 2px);
+    }
+
+    .form-field-100 {
+      width: calc(100%);
+    }
+  }
+
+  display: flex;
+  flex-direction: column;
+  tr.mat-header-row {
+    background-color: rgba(2, 2, 2, 0.05);
+  }
+
+  th.mat-header-cell,
+  td.mat-cell,
+  td.mat-footer-cell {
+    cursor: pointer;
+  }
+
+  .mat-header-cell,
+  .cdk-header-cell {
+    // font-weight: bold;
+    font-size: 1.1em;
+  }
+  .no-data {
+    padding: 1em;
+    text-align: center;
+    border-bottom: 1px solid rgba($gakkou-gray, 0.2);
+  }
+
+  .rents-table {
+    .mat-sort-header {
+      color: $gakkou-red;
+    }
+
+    .mat-column-studentName {
+      word-wrap: break-word;
+    }
+
+    .mat-column-rentDate {
+      width: 15%;
+    }
+
+    .mat-column-rentItem {
+      width: 40%;
+    }
+
+    .mat-column-comment {
+      word-wrap: break-word;
+      width: 15%;
+    }
+
+    .mat-column-options {
+      width: 40px;
+      button {
+        border-radius: 50%;
+        height: 36px;
+        width: 36px;
+        padding: 5px;
+      }
+    }
+  }
+  .return-icon {
+    color: $gakkou-gray;
+    border: 1px solid $gakkou-gray;
+    margin-right: 0.3em;
+    outline: none;
+    background-color: transparent;
+
+    &:hover {
+      background-color: $gakkou-gray;
+      color: white;
+    }
+
+    &:focus {
+      border: 1px dotted $gakkou-gray;
+    }
+  }
+}

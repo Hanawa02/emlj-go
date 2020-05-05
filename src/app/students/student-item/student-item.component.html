@@ -453,7 +453,7 @@
   (click)="save()"
   mat-raised-button="mat-raised-button"
   color="primary"
-  aria-label="studentForm.invalid"
+  [disabled]="studentForm.invalid"
   class="save-button"
 >
   Salvar

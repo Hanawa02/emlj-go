@@ -100,6 +100,7 @@ export class StudentItemComponent implements OnInit, OnDestroy {
         true,
         this.formatData
       ),
+      new ListFormColumn('titulo', 'Livro / Item', true),
       new ListFormColumn(
         'dataRetorno',
         'Data Retorno',
@@ -108,7 +109,6 @@ export class StudentItemComponent implements OnInit, OnDestroy {
         true,
         this.formatData
       ),
-      new ListFormColumn('item', 'Item', true),
       new ListFormColumn('observacao', 'Observação', true),
     ],
     false,
@@ -131,7 +131,7 @@ export class StudentItemComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.studentForm = this.formBuilder.group({
-      nome: ['', [Validators.minLength(3), Validators.requiredTrue]],
+      nome: ['', [Validators.minLength(3), Validators.required]],
       dataNascimento: ['', []],
       RG: ['', []],
       OrgaoEmissor: ['', []],

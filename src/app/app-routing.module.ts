@@ -7,6 +7,7 @@ import { StudentItemComponent } from './students/student-item/student-item.compo
 import { StudentSavedGuard } from './students/student-item/guards/student-saved.guard';
 import { BirthdayPersonComponent } from './birthday-person/birthday-person.component';
 import { LoginGuard } from './auth/guards/login.guard';
+import { RentsComponent } from './rents/rents.component';
 
 const appRoutes: Routes = [
   {
@@ -35,6 +36,11 @@ const appRoutes: Routes = [
     path: 'aniversariantes',
     canActivate: [AuthGuard],
     component: BirthdayPersonComponent,
+  },
+  {
+    path: 'emprestimos',
+    canActivate: [AuthGuard],
+    component: RentsComponent,
   },
   {
     path: '',

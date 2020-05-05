@@ -26,7 +26,6 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
       };
 
     case AuthActionTypes.LoginByTokenSuccess:
-      console.log(action.payload);
       return {
         ...state,
         isLoggedIn: true,

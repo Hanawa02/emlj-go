@@ -23,6 +23,7 @@ import localePT from '@angular/common/locales/pt';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getPortuguesePaginatorIntl } from './locale/pt-br.paginator.locale';
 import { environment } from 'src/environments/environment';
+import { RentsModule } from './rents/rents.module';
 
 registerLocaleData(localePT);
 
@@ -53,6 +54,7 @@ export function apiConfigFactory(): Configuration {
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
     }),
+    RentsModule,
   ],
   providers: [
     Store,

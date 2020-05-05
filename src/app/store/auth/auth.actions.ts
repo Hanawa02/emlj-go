@@ -3,6 +3,7 @@ import {
   User as LoginViewModel,
   LoginData,
   UpdatePassword,
+  User,
 } from '../../rest-api';
 
 export enum AuthActionTypes {
@@ -38,13 +39,18 @@ export class LoginError implements Action {
 export class LoginByToken implements Action {
   readonly type = AuthActionTypes.LoginByToken;
   constructor(
-    public payload: { email: string; token: string; expiresAt: string }
+    public payload: {
+      email: string;
+      username: string;
+      token: string;
+      expiresAt: string;
+    }
   ) {}
 }
 
 export class LoginByTokenSuccess implements Action {
   readonly type = AuthActionTypes.LoginByTokenSuccess;
-  constructor(public payload: { email: string }) {}
+  constructor(public payload: { user: User }) {}
 }
 
 export class Logout implements Action {

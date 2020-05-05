@@ -128,7 +128,9 @@ export class AuthEffects {
 
       this.setSessionExpirationTimeout(expiresIn);
 
-      return new LoginByTokenSuccess({ email: payload.email });
+      return new LoginByTokenSuccess({
+        user: { email: payload.email, username: payload.username },
+      });
     })
   );
 

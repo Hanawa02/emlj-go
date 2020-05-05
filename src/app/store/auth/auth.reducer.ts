@@ -3,12 +3,12 @@ import { User } from 'src/app/rest-api';
 
 export interface AuthState {
   isLoggedIn: boolean;
-  currentUserEmail: string;
+  currentUser: User;
 }
 
 export const initialState: AuthState = {
   isLoggedIn: false,
-  currentUserEmail: undefined,
+  currentUser: undefined,
 };
 
 export function reducer(state = initialState, action: AuthActions): AuthState {
@@ -22,14 +22,15 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
       return {
         ...state,
         isLoggedIn: true,
-        currentUserEmail: action.payload.loginData.user.email,
+        currentUser: action.payload.loginData.user,
       };
 
     case AuthActionTypes.LoginByTokenSuccess:
+      console.log(action.payload);
       return {
         ...state,
         isLoggedIn: true,
-        currentUserEmail: action.payload.email,
+        currentUser: action.payload.user,
       };
 
     case AuthActionTypes.LoginError:
@@ -41,7 +42,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
       return {
         ...state,
         isLoggedIn: false,
-        currentUserEmail: undefined,
+        currentUser: undefined,
       };
 
     default:

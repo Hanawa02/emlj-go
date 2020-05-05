@@ -10,7 +10,10 @@ export class ListFormConfiguration {
     public allowDelete: boolean = true
   ) {
     this.displayedColumns = this.columns.map((item) => item.propertyName);
-    if (!this.displayedColumns.includes('options')) {
+    if (
+      !this.displayedColumns.includes('options') &&
+      (this.allowDelete || this.allowEdit)
+    ) {
       this.displayedColumns.push('options');
     }
   }

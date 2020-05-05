@@ -27,16 +27,17 @@
 
       <ng-container *ngIf="column.shouldFormat">
         <td mat-cell *matCellDef="let element">
-          {{ column.format(element, column.propertyName) }}
+          {{ column.format(element[column.propertyName]) }}
         </td>
       </ng-container>
 
-      <ng-container *ngIf="!column.formater">
+      <ng-container *ngIf="!column.shouldFormat">
         <td mat-cell *matCellDef="let element">
           {{ element[column.propertyName] }}
         </td>
       </ng-container>
     </ng-container>
+
     <ng-container
       matColumnDef="options"
       class="no-shrink"

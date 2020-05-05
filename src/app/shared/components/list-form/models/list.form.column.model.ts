@@ -5,6 +5,6 @@ export class ListFormColumn {
     public allowSort: boolean = false,
     public styleClass: string = '',
     public shouldFormat: boolean = false,
-    public formater: (value: any, propertyName: string) => any = null
+    public format: (value: any) => any = null
   ) {}
 }

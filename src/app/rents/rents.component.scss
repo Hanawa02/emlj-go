@@ -129,19 +129,19 @@
     }
   }
   .return-icon {
-    color: $gakkou-gray;
-    border: 1px solid $gakkou-gray;
+    color: $gakkou-red;
+    border: 1px solid $gakkou-red;
     margin-right: 0.3em;
     outline: none;
     background-color: transparent;
 
     &:hover {
-      background-color: $gakkou-gray;
+      background-color: $gakkou-red;
       color: white;
     }
 
     &:focus {
-      border: 1px dotted $gakkou-gray;
+      border: 1px dotted $gakkou-red;
     }
   }
 }

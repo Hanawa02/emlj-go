@@ -13,6 +13,11 @@ export const getAllStudents = createSelector(
   fromStudentsState.selectAll
 );
 
+export const getStudentsEntities = createSelector(
+  selectStudentsState,
+  fromStudentsState.selectEntities
+);
+
 export const getAllActiveStudents = createSelector(
   getAllStudents,
   (students) => {

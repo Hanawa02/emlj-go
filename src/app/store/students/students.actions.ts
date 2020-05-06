@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Aluno } from 'src/app/rest-api';
+import { Rent } from 'src/app/shared/models/rent.model';
 
 export enum StudentsActionTypes {
   LoadStudents = '[Students] Load Students',
@@ -19,6 +20,9 @@ export enum StudentsActionTypes {
   DeleteStudentError = '[API] Delete Student Error',
 
   SelectStudent = '[Student] Select Student',
+
+  AddRent = '[Rent] Add Rent',
+  MarkRentAsReturned = '[Rent] Mark Rent As Returned',
 }
 
 export class LoadStudentsRequested implements Action {
@@ -86,6 +90,16 @@ export class SelectStudent implements Action {
   constructor(public payload: { studentId: string }) {}
 }
 
+export class AddRent implements Action {
+  readonly type = StudentsActionTypes.AddRent;
+  constructor(public payload: { rent: Rent }) {}
+}
+
+export class MarkRentAsReturned implements Action {
+  readonly type = StudentsActionTypes.MarkRentAsReturned;
+  constructor(public payload: { rent: Rent }) {}
+}
+
 export type StudentsActions =
   | LoadStudentsRequested
   | LoadStudentsSuccess
@@ -99,4 +113,6 @@ export type StudentsActions =
   | DeleteStudentRequested
   | DeleteStudentSuccess
   | DeleteStudentError
-  | SelectStudent;
+  | SelectStudent
+  | AddRent
+  | MarkRentAsReturned;

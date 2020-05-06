@@ -13,6 +13,7 @@ import { MatSort } from '@angular/material/sort';
 import { tap } from 'rxjs/operators';
 import { untilDestroy } from '@ngrx-utils/store';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { AddRent } from '../store/students/students.actions';
 
 @Component({
   selector: 'app-rents',
@@ -66,7 +67,8 @@ export class RentsComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    console.log(this.rentForm.value);
+    this.store.dispatch(new AddRent({ rent: this.rentForm.value }));
+    this.rentForm.reset();
   }
 
   markAsReturned(rent) {

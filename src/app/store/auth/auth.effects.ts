@@ -149,6 +149,14 @@ export class AuthEffects {
   wakeUpServer$ = this.actions$.pipe(
     ofType<WakeUpServer>(AuthActionTypes.WakeUpServer),
     tap(() => {
+      this.snackbar.open(
+        'Acordando o sistema! Isto pode demorar alguns segundos.',
+        'ok',
+        {
+          duration: 8000,
+          verticalPosition: 'top',
+        }
+      );
       this.defaultService.appControllerWakeUpServer().pipe(take(1)).subscribe();
     })
   );

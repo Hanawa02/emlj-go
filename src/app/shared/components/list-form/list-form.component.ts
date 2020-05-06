@@ -46,10 +46,17 @@ export class ListFormComponent
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dataSource.data = this.listValue;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 
   set value(value: any) {
-    if (!value) return;
+    if (!value) {
+      return;
+    }
+
     this.listValue = value;
     this.dataSource.data = value;
 

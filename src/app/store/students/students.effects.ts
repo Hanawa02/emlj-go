@@ -18,6 +18,7 @@ import {
   UpdateStudentSuccess,
   UpdateStudentError,
   AddRent,
+  MarkRentAsReturned,
 } from './students.actions';
 import { AlunosService, Emprestimo, Aluno } from '../../rest-api';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -196,6 +197,33 @@ export class StudentsEffects {
         observacao: rent.comment,
       };
       rents.push(emprestimo);
+
+      student.emprestimos = rents;
+
+      return of(new UpdateStudentRequested({ student }));
+    })
+  );
+
+  @Effect()
+  markRentAsReturned$ = this.actions$.pipe(
+    ofType<MarkRentAsReturned>(StudentsActionTypes.MarkRentAsReturned),
+    map((action) => action.payload.rent),
+    withLatestFrom(this.store.pipe(select(getStudentsEntities))),
+    switchMap(([rent, studentsEntities]) => {
+      const student: Aluno = { ...studentsEntities[rent.studentId] };
+      let rentItem = student.emprestimos.find(
+        (item) =>
+          item.dataEmprestimo === rent.rentDate.toString() &&
+          item.titulo === rent.rentItem &&
+          item.observacao === rent.comment
+      );
+
+      const rents = student.emprestimos.filter((item) => item !== rentItem);
+      rentItem = { ...rentItem };
+
+      rentItem.dataRetorno = new Date().toString();
+
+      rents.push(rentItem);
 
       student.emprestimos = rents;
 

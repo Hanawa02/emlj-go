@@ -13,7 +13,10 @@ import { MatSort } from '@angular/material/sort';
 import { tap } from 'rxjs/operators';
 import { untilDestroy } from '@ngrx-utils/store';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { AddRent } from '../store/students/students.actions';
+import {
+  AddRent,
+  MarkRentAsReturned,
+} from '../store/students/students.actions';
 
 @Component({
   selector: 'app-rents',
@@ -72,7 +75,7 @@ export class RentsComponent implements OnInit, OnDestroy {
   }
 
   markAsReturned(rent) {
-    console.log(rent);
+    this.store.dispatch(new MarkRentAsReturned({ rent }));
   }
 
   openRentDatePicker() {

@@ -178,6 +178,16 @@ export class StudentItemComponent implements OnInit, OnDestroy {
       )
       .subscribe();
 
+    this.route.paramMap
+      .pipe(
+        untilDestroy(this),
+        tap((params: ParamMap) => {
+          const studentId = params.get('id');
+          this.store.dispatch(new SelectStudent({ studentId }));
+        })
+      )
+      .subscribe();
+
     this.store
       .pipe(
         untilDestroy(this),
@@ -187,16 +197,6 @@ export class StudentItemComponent implements OnInit, OnDestroy {
           if (student && student.id) {
             this.addStudentValuesToForm();
           }
-        })
-      )
-      .subscribe();
-
-    this.route.paramMap
-      .pipe(
-        untilDestroy(this),
-        tap((params: ParamMap) => {
-          const studentId = params.get('id');
-          this.store.dispatch(new SelectStudent({ studentId }));
         })
       )
       .subscribe();

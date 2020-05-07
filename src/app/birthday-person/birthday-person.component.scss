@@ -8,6 +8,12 @@
     background-color: rgba(2, 2, 2, 0.05);
   }
 
+  th.mat-header-cell,
+  td.mat-cell,
+  td.mat-footer-cell {
+    cursor: pointer;
+  }
+
   .no-data {
     padding: 1em;
     text-align: center;

@@ -25,13 +25,23 @@
     <!-- Name Column -->
     <ng-container matColumnDef="nome">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
-      <td mat-cell *matCellDef="let element">{{ element.nome }}</td>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        (click)="navigateToEdit(element.id)"
+      >
+        {{ element.nome }}
+      </td>
     </ng-container>
 
     <!-- Birthdate Column -->
     <ng-container matColumnDef="dataNascimento">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Aniversario</th>
-      <td mat-cell *matCellDef="let element">
+      <td
+        mat-cell
+        *matCellDef="let element"
+        (click)="navigateToEdit(element.id)"
+      >
         {{ element.dataNascimento | date: 'dd/MMMM' }}
       </td>
     </ng-container>
@@ -39,7 +49,11 @@
     <!-- Current Class Column -->
     <ng-container matColumnDef="turmaAtual">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Turma Atual</th>
-      <td mat-cell *matCellDef="let element">
+      <td
+        mat-cell
+        *matCellDef="let element"
+        (click)="navigateToEdit(element.id)"
+      >
         {{ element.turmaAtual ? element.turmaAtual : 'Aluno(a) inativo(a)' }}
       </td>
     </ng-container>

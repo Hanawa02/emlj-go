@@ -67,4 +67,8 @@ export class BirthdayPersonComponent implements OnInit, OnDestroy {
 
     return aniversario.getMonth() === mes;
   }
+
+  navigateToEdit(studentId: string) {
+    this.router.navigate(['editarAluno', studentId]);
+  }
 }

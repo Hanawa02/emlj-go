@@ -153,7 +153,7 @@ export class AuthEffects {
         'Acordando o sistema! Isto pode demorar alguns segundos.',
         'ok',
         {
-          duration: 8000,
+          duration: 4000,
           verticalPosition: 'top',
         }
       );

@@ -27,6 +27,7 @@ import { PhoneFormatPipe } from './pipes/phone-format.pipe';
 import { ConfirmDialogModule } from './components/dialogs/confirm-dialog/confirm-dialog.module';
 import { ListFormModule } from './components/list-form/list-form.module';
 import { ChangePasswordDialogModule } from './components/dialogs/change-password-dialog/change-password-dialog.module';
+import { GetClassPipe } from './pipes/get-class.pipe';
 
 const angularMaterialModules = [
   MatIconModule,
@@ -43,7 +44,7 @@ const angularMaterialModules = [
   MatProgressBarModule,
 ];
 
-const pipes = [CPFFormatPipe, CEPFormatPipe, PhoneFormatPipe];
+const pipes = [CPFFormatPipe, CEPFormatPipe, PhoneFormatPipe, GetClassPipe];
 @NgModule({
   declarations: [...pipes],
   imports: [CommonModule, ...angularMaterialModules, RadioButtonModule],

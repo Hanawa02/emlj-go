@@ -69,7 +69,7 @@ export class StudentItemComponent implements OnInit, OnDestroy {
   addRentComment = new FormControl('');
 
   studiedJapaneseBefore: boolean;
-  activeStudent: boolean;
+  activeStudent = true;
 
   isEdit: boolean;
 
